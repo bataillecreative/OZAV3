@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Inputs</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.eye{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-3)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+.g{display:flex;flex-direction:column;gap:6px}
+.lab{font-family:var(--font-body);font-size:11px;font-weight:500;color:var(--text-secondary);letter-spacing:.04em}
+.inp{padding:9px 13px;border:1px solid var(--border-default);border-radius:var(--radius-md);background:var(--bg-canvas);font-family:var(--font-body);font-size:13px;color:var(--text-primary);outline:none}
+.inp.focus{border-color:var(--signal-500);box-shadow:0 0 0 3px var(--focus-ring)}
+.inp.read{color:var(--text-tertiary)}
+</style></head><body><div class="card">
+<div class="eye">Default · Focus · Read-only · radius-md</div>
+<div class="grid">
+  <div class="g"><label class="lab">Rechercher une zone</label><input class="inp" placeholder="ZAC, station, projet..."></div>
+  <div class="g"><label class="lab">Type d'établissement</label><input class="inp focus" value="Hypermarché"></div>
+  <div class="g"><label class="lab">Coordonnées</label><input class="inp read" value="43.4567° N · 5.4321° E" readonly></div>
+  <div class="g"><label class="lab">Surface (ha)</label><input class="inp" value="152" type="number"></div>
+</div>
+</div></body></html>

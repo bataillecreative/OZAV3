@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Shadows</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.eye{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-4)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)}
+.tile{aspect-ratio:1.4/1;background:var(--bg-surface);border-radius:var(--radius-lg);display:flex;align-items:flex-end;padding:var(--space-3);flex-direction:column}
+.s1{box-shadow:var(--shadow-sm)}
+.s2{box-shadow:var(--shadow-md)}
+.s3{box-shadow:var(--shadow-lg)}
+.n{font-family:var(--font-mono);font-size:10.5px;color:var(--text-primary)}
+.v{font-family:var(--font-mono);font-size:9px;color:var(--text-tertiary);margin-top:2px}
+</style></head><body><div class="card">
+<div class="eye">3 niveaux · noir chaud rgba(44,40,32) — jamais gris-bleu</div>
+<div class="grid">
+  <div class="tile s1"><div class="n">--shadow-sm</div><div class="v">0 1 2 / .06</div></div>
+  <div class="tile s2"><div class="n">--shadow-md</div><div class="v">0 4 12 / .10 + 0 2 4 / .06</div></div>
+  <div class="tile s3"><div class="n">--shadow-lg</div><div class="v">0 16 32 / .16 + 0 4 8 / .08</div></div>
+</div>
+</div></body></html>

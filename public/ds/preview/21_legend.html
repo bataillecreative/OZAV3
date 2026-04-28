@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Légende cartographique</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.eye{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-3)}
+.row{display:grid;grid-template-columns:36px 1fr auto;gap:var(--space-3);align-items:center;padding:5px 0;border-bottom:1px solid var(--border-subtle);font-size:12px}
+.row:last-child{border-bottom:0}
+.lab{font-family:var(--font-body);font-weight:500;color:var(--text-primary)}
+.met{font-family:var(--font-mono);font-size:9px;color:var(--text-tertiary);letter-spacing:.04em}
+.line{display:flex;flex-direction:column;gap:1px}
+.fill{height:14px;border-radius:2px}
+.poi{display:flex;align-items:center;justify-content:center}
+.poi-dot{width:11px;height:11px;border-radius:50%;background:#D63A6E;border:2px solid #F0EBDF;box-shadow:0 0 0 1px #4E4360}
+</style></head><body><div class="card">
+<div class="eye">Système 700/inner — contour foncé + remplissage clair</div>
+<div class="row"><div class="line"><div style="height:5px;background:#4E4360;border-radius:1px"></div><div style="height:3px;background:#8C7B96"></div><div style="height:5px;background:#4E4360;border-radius:1px"></div></div><span class="lab">Autoroute</span><span class="met">network 700/500</span></div>
+<div class="row"><div class="line"><div style="height:4px;background:#4E4360;border-radius:1px"></div><div style="height:2px;background:#BAAFC2"></div><div style="height:4px;background:#4E4360;border-radius:1px"></div></div><span class="lab">Voie rapide</span><span class="met">network 700/300</span></div>
+<div class="row"><div class="line"><div style="height:3px;background:#7A5224;border-radius:1px"></div><div style="height:2px;background:#E8C282"></div><div style="height:3px;background:#7A5224;border-radius:1px"></div></div><span class="lab">Artère urbaine</span><span class="met">warm 700/300</span></div>
+<div class="row"><div class="fill" style="background:#8C7B96;border:1px solid #4E4360"></div><span class="lab">Zone commerciale</span><span class="met">network-500</span></div>
+<div class="row"><div class="fill" style="background:#BBC5BB"></div><span class="lab">Sols perméables</span><span class="met">green-300</span></div>
+<div class="row"><div class="fill" style="background:#8AAFB6"></div><span class="lab">Eau</span><span class="met">water-400</span></div>
+<div class="row"><div class="poi"><div class="poi-dot"></div></div><span class="lab">POI majeur</span><span class="met">signal-400 · carte</span></div>
+</div></body></html>

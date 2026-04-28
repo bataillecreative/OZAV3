@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Semantic tokens</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+.tok{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;padding:6px 0;border-bottom:1px solid var(--border-subtle);font-size:11px}
+.tok:last-child{border-bottom:0}
+.chip{width:36px;height:22px;border-radius:var(--radius-sm);border:1px solid rgba(44,40,32,0.08)}
+.tk-name{font-family:var(--font-mono);font-size:10.5px;color:var(--text-primary)}
+.tk-val{font-family:var(--font-body);font-size:10px;color:var(--text-tertiary);margin-top:1px}
+</style></head><body><div class="card">
+<div class="grid">
+  <div>
+    <div class="tok"><div class="chip" style="background:var(--bg-canvas)"></div><div><div class="tk-name">--bg-canvas</div><div class="tk-val">neutral-100</div></div></div>
+    <div class="tok"><div class="chip" style="background:var(--bg-surface)"></div><div><div class="tk-name">--bg-surface</div><div class="tk-val">neutral-100 + 25% white</div></div></div>
+    <div class="tok"><div class="chip" style="background:var(--bg-emphasis)"></div><div><div class="tk-name">--bg-emphasis</div><div class="tk-val">neutral-900</div></div></div>
+    <div class="tok"><div class="chip" style="background:var(--text-primary)"></div><div><div class="tk-name">--text-primary</div><div class="tk-val">neutral-900</div></div></div>
+    <div class="tok"><div class="chip" style="background:var(--text-secondary)"></div><div><div class="tk-name">--text-secondary</div><div class="tk-val">75/25 mix</div></div></div>
+    <div class="tok"><div class="chip" style="background:var(--text-tertiary)"></div><div><div class="tk-name">--text-tertiary</div><div class="tk-val">50/50 mix</div></div></div>
+  </div>
+  <div>
+    <div class="tok"><div class="chip" style="background:var(--border-subtle)"></div><div><div class="tk-name">--border-subtle</div><div class="tk-val">neutral-200</div></div></div>
+    <div class="tok"><div class="chip" style="background:var(--border-default)"></div><div><div class="tk-name">--border-default</div><div class="tk-val">neutral-400</div></div></div>
+    <div class="tok"><div class="chip" style="background:var(--action-default)"></div><div><div class="tk-name">--action-default</div><div class="tk-val">signal-500 · web</div></div></div>
+    <div class="tok"><div class="chip" style="background:var(--action-hover)"></div><div><div class="tk-name">--action-hover</div><div class="tk-val">signal-700</div></div></div>
+    <div class="tok"><div class="chip" style="background:rgba(181,72,58,0.25)"></div><div><div class="tk-name">--focus-ring</div><div class="tk-val">signal-500 / 25%</div></div></div>
+  </div>
+</div>
+</div></body></html>

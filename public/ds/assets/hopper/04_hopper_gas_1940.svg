@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 330" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+                  
+                  <defs>
+                    <linearGradient id="gas-sky" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#D6CFC0" stop-opacity="0.7"></stop>
+                      <stop offset="0.6" stop-color="#E8C282" stop-opacity="0.55"></stop>
+                      <stop offset="1" stop-color="#F0EBDF" stop-opacity="0.4"></stop>
+                    </linearGradient>
+                  </defs>
+                  <rect width="500" height="180" fill="url(#gas-sky)"></rect>
+
+                  
+                  <path d="M0,80 L0,330 L290,330 L290,180 Q280,160 260,170 Q240,140 220,160 Q200,135 180,155 Q160,130 140,150 Q120,125 100,145 Q80,120 60,140 Q40,115 20,135 Q10,90 0,80 Z" fill="#5F7066"></path>
+                  <path d="M0,180 L0,330 L260,330 L260,200 Q240,180 220,195 Q200,170 180,185 Q160,160 140,175 Q120,150 100,165 Q80,140 60,155 Q30,165 0,180 Z" fill="#5F7066"></path>
+
+                  
+                  <polygon points="0,330 500,330 500,295 290,250" fill="#2C2820"></polygon>
+                  <polygon points="0,310 500,330 500,295 0,295" fill="#2C2820" opacity="0.6"></polygon>
+                  
+                  <line x1="80" y1="320" x2="450" y2="295" stroke="#F0EBDF" stroke-width="1.5" stroke-dasharray="8 10" opacity="0.7"></line>
+
+                  
+                  <path d="M280,250 L500,250 L500,295 L280,295 Z" fill="#D4A975"></path>
+                  <path d="M280,265 L500,265 L500,295 L280,295 Z" fill="#7A5224" opacity="0.35"></path>
+
+                  
+                  <rect x="345" y="155" width="135" height="105" fill="#F0EBDF"></rect>
+                  <rect x="345" y="155" width="135" height="105" fill="none" stroke="#2C2820" stroke-width="1"></rect>
+                  
+                  <polygon points="335,155 490,155 470,128 355,128" fill="#D6CFC0"></polygon>
+                  <polygon points="335,155 490,155 470,128 355,128" fill="none" stroke="#2C2820" stroke-width="1"></polygon>
+                  
+                  <rect x="430" y="115" width="10" height="20" fill="#7A5224"></rect>
+                  
+                  <rect x="395" y="200" width="30" height="60" fill="#2C2820"></rect>
+                  
+                  <rect x="440" y="190" width="28" height="30" fill="#E8C282" opacity="0.85"></rect>
+
+                  
+                  <path d="M310,260 Q310,160 340,140" fill="none" stroke="#F0EBDF" stroke-width="2.5"></path>
+                  <ellipse cx="338" cy="138" rx="8" ry="5" fill="#F0EBDF"></ellipse>
+                  
+                  <ellipse cx="338" cy="180" rx="80" ry="35" fill="#E8C282" opacity="0.18"></ellipse>
+
+                  
+                  
+                  <rect x="240" y="220" width="22" height="50" fill="#B5483A"></rect>
+                  <rect x="240" y="220" width="22" height="50" fill="none" stroke="#2C2820" stroke-width="0.6"></rect>
+                  <rect x="245" y="226" width="12" height="8" fill="#F0EBDF"></rect>
+                  <circle cx="251" cy="218" r="5" fill="#F0EBDF"></circle>
+                  
+                  <rect x="275" y="218" width="22" height="52" fill="#B5483A"></rect>
+                  <rect x="275" y="218" width="22" height="52" fill="none" stroke="#2C2820" stroke-width="0.6"></rect>
+                  <rect x="280" y="224" width="12" height="8" fill="#F0EBDF"></rect>
+                  <circle cx="286" cy="216" r="5" fill="#F0EBDF"></circle>
+                  
+                  <rect x="310" y="222" width="22" height="48" fill="#B5483A"></rect>
+                  <rect x="310" y="222" width="22" height="48" fill="none" stroke="#2C2820" stroke-width="0.6"></rect>
+                  <rect x="315" y="228" width="12" height="8" fill="#F0EBDF"></rect>
+                  <circle cx="321" cy="220" r="5" fill="#F0EBDF"></circle>
+
+                  
+                  <ellipse cx="305" cy="218" rx="5" ry="5" fill="#D4A975"></ellipse>
+                  <rect x="301" y="222" width="10" height="32" fill="#F0EBDF"></rect>
+                  <rect x="299" y="252" width="6" height="18" fill="#2C2820"></rect>
+                  <rect x="307" y="252" width="6" height="18" fill="#2C2820"></rect>
+
+                  
+                  <rect x="362" y="60" width="76" height="34" fill="#F0EBDF"></rect>
+                  <rect x="362" y="60" width="76" height="34" fill="none" stroke="#2C2820" stroke-width="0.8"></rect>
+                  <text x="400" y="82" text-anchor="middle" font-family="Anton" font-size="14" fill="#B5483A" letter-spacing="1.5">MOBIL</text>
+                  <rect x="396" y="94" width="8" height="62" fill="#2C2820"></rect>
+                </svg>

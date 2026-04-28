@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>POI cartographique</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.eye{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-3)}
+.bg{background:var(--neutral-200);height:140px;border-radius:var(--radius-md);position:relative;overflow:hidden;border:1px solid var(--border-subtle)}
+.poi{position:absolute;display:flex;align-items:center;justify-content:center}
+.poi .ring{width:18px;height:18px;border-radius:50%;background:rgba(240,235,223,0.85)}
+.poi .core{width:11px;height:11px;border-radius:50%;background:#D63A6E;border:1.5px solid #4E4360;position:absolute}
+.minor .core{background:#D4A975;width:8px;height:8px;border:1px solid #7A5224}
+.minor .ring{width:14px;height:14px}
+.label{position:absolute;font-family:var(--font-display);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-primary);white-space:nowrap}
+.cap{position:absolute;font-family:var(--font-mono);font-size:9px;color:var(--text-tertiary);letter-spacing:.04em;white-space:nowrap}
+</style></head><body><div class="card">
+<div class="eye">Majeur · magenta de Jane · contour plum · halo crème — Mineur · sodium gold</div>
+<div class="bg">
+  <div class="poi" style="top:38px;left:120px"><div class="ring"></div><div class="core"></div></div>
+  <div class="label" style="top:34px;left:148px">ZAC SUD I</div>
+  <div class="poi minor" style="top:90px;left:280px"><div class="ring"></div><div class="core"></div></div>
+  <div class="cap" style="top:90px;left:300px">Bâti · 23</div>
+  <div class="poi minor" style="top:55px;left:420px"><div class="ring"></div><div class="core"></div></div>
+  <div class="cap" style="top:55px;left:440px">Projet · 04</div>
+</div>
+</div></body></html>

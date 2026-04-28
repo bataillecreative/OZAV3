@@ -1,0 +1,287 @@
+/* ╔══════════════════════════════════════════════════════════╗
+   ║  OPEN ZONES ACT — tokens.css                              ║
+   ║  Palette v6 · 20 tokens · 5 familles + signal             ║
+   ║  Verrouillé : palette, monopoles, polices.                ║
+   ╚══════════════════════════════════════════════════════════╝ */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@font-face {
+  font-family: 'Supreme';
+  src: url('/font/Supreme_Complete/Fonts/WEB/fonts/Supreme-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Supreme';
+  src: url('/font/Supreme_Complete/Fonts/WEB/fonts/Supreme-VariableItalic.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  /* ── 01 NEUTRAL ──────────────────────────────────── */
+  --neutral-100: #F0EBDF;
+  --neutral-200: #D6CFC0;
+  --neutral-400: #A8A097;
+  --neutral-900: #2C2820;
+
+  /* ── 02 GREEN ────────────────────────────────────── */
+  --green-300:   #BBC5BB;
+  --green-500:   #8FA597;
+  --green-700:   #5F7066;
+
+  /* ── 03 WATER (monopole) ─────────────────────────── */
+  --water-100:   #DCE6E8;
+  --water-400:   #8AAFB6;
+  --water-700:   #3C5E68;
+
+  /* ── 04 NETWORK (monopole commerce + axes) ───────── */
+  --network-300: #BAAFC2;
+  --network-500: #8C7B96;
+  --network-700: #4E4360;
+
+  /* ── 05 WARM (sodium · bâti) ─────────────────────── */
+  --warm-300:    #E8C282;
+  --warm-400:    #D4A975;
+  --warm-700:    #7A5224;
+
+  /* ── 06 SIGNAL (Paris, Texas) ────────────────────── */
+  --signal-100:  #F5DDD7;
+  --signal-400:  #D63A6E;
+  --signal-500:  #B5483A;
+  --signal-700:  #5A1F2E;
+
+  /* ── 07 PLUM — footer (toujours sombre) ────────────── */
+  --plum-deep:    #1F1830;  /* footer top */
+  --plum-deeper:  #15101F;  /* footer bottom */
+
+  /* ── TOKENS SÉMANTIQUES (dawn · 05·42 pre-dawn) ───── */
+  /* Le site est figé sur l'heure dawn : violet-bleu froid de
+     l'heure bleue. Plus de hour-cycling. */
+  --bg-canvas:        #E8E2D8;
+  --bg-tone:          #DCD4D2;
+  --bg-surface:       color-mix(in srgb, var(--neutral-100) 75%, #ffffff 25%);
+  --bg-emphasis:      var(--neutral-900);
+
+  --text-primary:     var(--neutral-900);
+  --text-secondary:   color-mix(in srgb, var(--neutral-900) 75%, var(--neutral-400) 25%);
+  --text-tertiary:    color-mix(in srgb, var(--neutral-900) 50%, var(--neutral-400) 50%);
+  --text-on-emphasis: var(--neutral-100);
+
+  --border-subtle:    var(--neutral-200);
+  --border-default:   var(--neutral-400);
+
+  --action-default:   var(--network-500);
+  --action-hover:     var(--network-700);
+  --focus-ring:       rgba(140, 123, 150, 0.30);
+
+  /* hour-accent = network-300 (violet brumeux) — la signature dawn */
+  --hour-accent: var(--network-300);
+
+  /* Halo ambient permanent — radials dawn (heure bleue) */
+  --ambient-gradient:
+    radial-gradient(70% 60% at 18% -5%, rgba(186, 175, 194, 0.55) 0%, transparent 60%),
+    radial-gradient(55% 45% at 92% 8%, rgba(138, 175, 182, 0.40) 0%, transparent 60%),
+    radial-gradient(80% 50% at 50% 100%, rgba(186, 175, 194, 0.18) 0%, transparent 65%);
+
+  /* ── ESPACEMENT ──────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 80px;
+
+  /* Hauteur effective sous le header sticky (capsule + sa marge top).
+     Source unique pour les surfaces qui doivent commencer juste sous
+     le header — carte plein-écran, légendes sticky, etc. */
+  --header-clearance: 76px;
+
+  /* ── RAYONS ──────────────────────────────────────── */
+  --radius-sm:   3px;
+  --radius-md:   6px;
+  --radius-lg:   10px;
+  --radius-pill: 999px;
+
+  /* ── OMBRES ──────────────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgba(44, 40, 32, 0.06);
+  --shadow-md: 0 4px 12px -4px rgba(44, 40, 32, 0.10),
+               0 2px 4px -2px rgba(44, 40, 32, 0.06);
+  --shadow-lg: 0 16px 32px -12px rgba(44, 40, 32, 0.16),
+               0 4px 8px -2px rgba(44, 40, 32, 0.08);
+
+  /* ── TYPO familles ───────────────────────────────── */
+  --font-display: 'Anton', sans-serif;
+  --font-body:    'Supreme', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* ── TYPO échelles canoniques (DS) ───────────────── */
+  /* Anton — display (single weight, all-caps, tracking 0.005em) */
+  --type-h1-size:    clamp(40px, 4.5vw, 68px);   /* H1 éditorial · galerie / fiche */
+  --type-h1-lh:      1.08;
+  --type-h2-size:    32px;                        /* H2 · sections, grandes valeurs */
+  --type-h2-lh:      1.10;
+  --type-h3-size:    22px;                        /* H3 · sous-sections, recents, popovers */
+  --type-h3-lh:      1.15;
+  --type-h4-size:    16px;                        /* H4 / Lbl · cartes, titres internes */
+  --type-h4-lh:      1.20;
+  --type-display-md-size: clamp(28px, 2.9vw, 44px); /* hero home — long phrase éditoriale */
+  --type-display-md-lh:   1.02;
+  --type-display-xxl-size: clamp(80px, 13vw, 220px); /* exception · spécimen */
+  --type-display-xxl-lh:   0.92;
+
+  /* Supreme — body (300/400/500/700 + 300i, tracking -0.01em à neutre) */
+  --type-lede-size:  16px;                        /* lede · entrée d'article */
+  --type-lede-lh:    1.60;
+  --type-body-size:  14.5px;                      /* prose courante */
+  --type-body-lh:    1.65;
+  --type-small-size: 12.5px;                      /* captions, labels secondaires */
+  --type-small-lh:   1.55;
+  --type-quote-size: 18px;                        /* citation italique 300 */
+  --type-quote-lh:   1.40;
+
+  /* JetBrains Mono — data (400/500) */
+  --type-meta-size:    10px;                      /* slate, cartouche, micro-mono */
+  --type-meta-tracking:0.18em;
+  --type-eyebrow-size: 11px;                      /* II · Échelles, signal-500 */
+  --type-eyebrow-tracking: 0.18em;
+  --type-coord-size:   13px;                      /* coordonnées, mesures */
+  --type-coord-tracking:0.04em;
+  --type-token-size:   12px;                      /* tokens hex, métadonnées */
+  --type-micro-size:   9px;                       /* corner labels, mini-stats */
+
+  /* Display numbers (Anton, sans uppercase forcé) */
+  --type-num-xl-size:  36px;                      /* stats hero */
+  --type-num-lg-size:  32px;                      /* meta-cell .v */
+  --type-num-md-size:  28px;                      /* promise card num */
+  --type-num-sm-size:  18px;                      /* popover stat */
+
+  /* ── ANIMATION ───────────────────────────────────── */
+  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast:   0.15s;
+  --duration-medium: 0.3s;
+  --duration-slow:   0.4s;
+}
+
+
+/* ╔══════════════════════════════════════════════════════════╗
+   ║  TYPO — utilitaires canoniques (mirroir du DS)            ║
+   ║  Source unique : ces classes ne sont jamais override.     ║
+   ╚══════════════════════════════════════════════════════════╝ */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--type-h1-size);
+  line-height: var(--type-h1-lh);
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--type-h2-size);
+  line-height: var(--type-h2-lh);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+h3, .h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--type-h3-size);
+  line-height: var(--type-h3-lh);
+  letter-spacing: 0.015em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+h4, .h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--type-h4-size);
+  line-height: var(--type-h4-lh);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+.display-md {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--type-display-md-size);
+  line-height: var(--type-display-md-lh);
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+.display-xxl {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--type-display-xxl-size);
+  line-height: var(--type-display-xxl-lh);
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+}
+.lede {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--type-lede-size);
+  line-height: var(--type-lede-lh);
+  color: var(--text-primary);
+}
+.body, p.body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--type-body-size);
+  line-height: var(--type-body-lh);
+  color: var(--text-secondary);
+}
+.small {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--type-small-size);
+  line-height: var(--type-small-lh);
+  color: var(--text-secondary);
+}
+.quote {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 300;
+  font-size: var(--type-quote-size);
+  line-height: var(--type-quote-lh);
+  color: var(--text-secondary);
+}
+.meta, .slate {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: var(--type-meta-size);
+  font-variant: small-caps;
+  letter-spacing: var(--type-meta-tracking);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: var(--type-eyebrow-size);
+  letter-spacing: var(--type-eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--signal-500);
+}
+.coord, .mono {
+  font-family: var(--font-mono);
+  font-size: var(--type-coord-size);
+  letter-spacing: var(--type-coord-tracking);
+  color: var(--text-secondary);
+}
+.sc {
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.86em;
+}

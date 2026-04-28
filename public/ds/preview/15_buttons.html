@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Buttons</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.eye{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:var(--space-3)}
+.row{display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;margin-bottom:var(--space-3)}
+.row:last-child{margin-bottom:0}
+.btn{display:inline-flex;align-items:center;gap:var(--space-2);padding:10px 18px;border-radius:var(--radius-md);font-family:var(--font-body);font-weight:500;font-size:13px;line-height:1;cursor:pointer;border:1px solid transparent;transition:all .15s}
+.btn-primary{background:var(--action-default);color:var(--neutral-100)}
+.btn-secondary{background:var(--bg-surface);color:var(--text-primary);border-color:var(--border-default)}
+.btn-ghost{background:transparent;color:var(--network-500)}
+.btn-disabled{opacity:.5;cursor:not-allowed}
+.btn-focus{outline:none;box-shadow:0 0 0 3px var(--focus-ring)}
+.lbl{font-family:var(--font-mono);font-size:9px;color:var(--text-tertiary);letter-spacing:.06em;width:60px}
+</style></head><body><div class="card">
+<div class="eye">Primary · Secondary · Ghost · Focus · Disabled · radius-md 6px</div>
+<div class="row"><span class="lbl">Primary</span>
+  <button class="btn btn-primary">Voir les zones</button>
+  <button class="btn btn-primary" style="background:var(--action-hover)">Hover</button>
+  <button class="btn btn-primary btn-focus">Focus</button>
+  <button class="btn btn-primary btn-disabled">Disabled</button>
+</div>
+<div class="row"><span class="lbl">Other</span>
+  <button class="btn btn-secondary">Filtrer</button>
+  <button class="btn btn-ghost">En savoir plus</button>
+  <button class="btn btn-secondary" style="font-size:12px;padding:7px 14px">Compact</button>
+</div>
+</div></body></html>

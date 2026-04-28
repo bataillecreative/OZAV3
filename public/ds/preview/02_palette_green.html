@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Green</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-2)}
+.sw{aspect-ratio:1.6/1;border-radius:var(--radius-sm);border:1px solid rgba(44,40,32,0.06);position:relative;padding:8px}
+.sw .step{font-family:var(--font-mono);font-size:9px;letter-spacing:.06em;opacity:.6;position:absolute;top:6px;right:8px}
+.sw .hex{font-family:var(--font-mono);font-size:10px;font-weight:500;position:absolute;bottom:6px;left:8px}
+.sw .name{font-family:var(--font-body);font-weight:500;font-size:11px;position:absolute;bottom:22px;left:8px}
+.sw.l .step,.sw.l .hex,.sw.l .name{color:var(--neutral-900)}
+.sw.d .step,.sw.d .hex,.sw.d .name{color:var(--neutral-100)}
+.row{margin-top:var(--space-3);font-family:var(--font-body);font-size:11px;color:var(--text-tertiary);line-height:1.5}
+</style></head><body><div class="card">
+<div class="swatches">
+  <div class="sw l" style="background:var(--green-300)"><span class="step">300</span><span class="name">Vert sauge</span><span class="hex">#BBC5BB</span></div>
+  <div class="sw l" style="background:var(--green-500)"><span class="step">500</span><span class="name">Vert grisé</span><span class="hex">#8FA597</span></div>
+  <div class="sw d" style="background:var(--green-700)"><span class="step">700</span><span class="name">Vert foncé</span><span class="hex">#5F7066</span></div>
+</div>
+<div class="row">Sols perméables, parcs, mobilité douce. Tirée vers la végétation parched de Hopper.</div>
+</div></body></html>

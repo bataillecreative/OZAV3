@@ -1,0 +1,782 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Zones Act · Design System (snapshot)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=supreme@300,400,500,700,300i&display=swap" rel="stylesheet">
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     SNAPSHOT — état du DS au moment de la génération de ce fichier.
+     Pour un import live, voir src/styles/tokens.css à la racine.
+  ───────────────────────────────────────────────────────────── */
+  :root {
+    /* Neutral */
+    --neutral-100: #F0EBDF; --neutral-200: #D6CFC0; --neutral-400: #A8A097; --neutral-900: #2C2820;
+    /* Green */
+    --green-300: #BBC5BB; --green-500: #8FA597; --green-700: #5F7066;
+    /* Water (monopole eau) */
+    --water-100: #DCE6E8; --water-400: #8AAFB6; --water-700: #3C5E68;
+    /* Network (monopole commerce + axes routiers · maintenant aussi accent UI) */
+    --network-300: #BAAFC2; --network-500: #8C7B96; --network-700: #4E4360;
+    /* Warm (sodium · bâti) */
+    --warm-300: #E8C282; --warm-400: #D4A975; --warm-700: #7A5224;
+    /* Signal (Paris/Texas · réservé brand moment footer DA) */
+    --signal-100: #F5DDD7; --signal-400: #D63A6E; --signal-500: #B5483A; --signal-700: #5A1F2E;
+    /* Plum (footer toujours sombre) */
+    --plum-deep: #1F1830; --plum-deeper: #15101F;
+
+    /* Semantic — dawn (heure bleue) */
+    --bg-canvas: #E8E2D8;
+    --bg-tone: #DCD4D2;
+    --bg-surface: color-mix(in srgb, var(--neutral-100) 75%, #ffffff 25%);
+    --bg-emphasis: var(--neutral-900);
+    --text-primary: var(--neutral-900);
+    --text-secondary: color-mix(in srgb, var(--neutral-900) 75%, var(--neutral-400) 25%);
+    --text-tertiary: color-mix(in srgb, var(--neutral-900) 50%, var(--neutral-400) 50%);
+    --text-on-emphasis: var(--neutral-100);
+    --border-subtle: var(--neutral-200);
+    --border-default: var(--neutral-400);
+    --action-default: var(--network-500);
+    --action-hover: var(--network-700);
+    --focus-ring: rgba(140, 123, 150, 0.30);
+    --hour-accent: var(--network-300);
+    --ambient-gradient:
+      radial-gradient(70% 60% at 18% -5%, rgba(186, 175, 194, 0.55) 0%, transparent 60%),
+      radial-gradient(55% 45% at 92% 8%, rgba(138, 175, 182, 0.40) 0%, transparent 60%),
+      radial-gradient(80% 50% at 50% 100%, rgba(186, 175, 194, 0.18) 0%, transparent 65%);
+
+    /* Spacing base 4 */
+    --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+    --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px; --space-9: 80px;
+
+    /* Radii */
+    --radius-sm: 3px; --radius-md: 6px; --radius-lg: 10px; --radius-pill: 999px;
+
+    /* Shadows (noir chaud) */
+    --shadow-sm: 0 1px 2px rgba(44, 40, 32, 0.06);
+    --shadow-md: 0 4px 12px -4px rgba(44, 40, 32, 0.10), 0 2px 4px -2px rgba(44, 40, 32, 0.06);
+    --shadow-lg: 0 16px 32px -12px rgba(44, 40, 32, 0.16), 0 4px 8px -2px rgba(44, 40, 32, 0.08);
+
+    /* Fonts */
+    --font-display: 'Anton', sans-serif;
+    --font-body: 'Supreme', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Type scale */
+    --type-h1-size: clamp(40px, 4.5vw, 68px);
+    --type-h2-size: 32px;
+    --type-h3-size: 22px;
+    --type-h4-size: 16px;
+    --type-display-md-size: clamp(28px, 2.9vw, 44px);
+    --type-display-xxl-size: clamp(80px, 13vw, 220px);
+    --type-lede-size: 16px;
+    --type-body-size: 14.5px;
+    --type-small-size: 12.5px;
+    --type-quote-size: 18px;
+    --type-meta-size: 10px;
+    --type-eyebrow-size: 11px;
+    --type-coord-size: 13px;
+    --type-token-size: 12px;
+    --type-micro-size: 9px;
+
+    /* Motion */
+    --duration-fast: 0.15s;
+    --duration-medium: 0.3s;
+    --duration-slow: 0.4s;
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  ul, ol { list-style: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  html, body {
+    background: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+  body { position: relative; min-height: 100vh; }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: -1;
+    background: var(--ambient-gradient);
+    pointer-events: none;
+  }
+
+  .ds-shell { max-width: 1200px; margin: 0 auto; padding: var(--space-7) var(--space-6) var(--space-9); }
+
+  .ds-back {
+    display: inline-flex; align-items: center; gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow-size);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    text-decoration: none;
+    margin-bottom: var(--space-6);
+    padding: 8px 12px 8px 0;
+  }
+  .ds-back:hover { color: var(--network-700); }
+
+  .ds-eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow-size);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--network-700);
+    margin-bottom: var(--space-3);
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--type-h1-size);
+    line-height: 1.08;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin-bottom: var(--space-5);
+    text-wrap: balance;
+  }
+  .ds-lede {
+    font-family: var(--font-body);
+    font-weight: 300;
+    font-size: var(--type-lede-size);
+    line-height: 1.6;
+    color: var(--text-primary);
+    max-width: 64ch;
+    text-wrap: pretty;
+    margin-bottom: var(--space-8);
+  }
+  .ds-lede em { font-style: italic; color: var(--text-secondary); }
+
+  section { margin-top: var(--space-8); }
+  .ds-section-rule {
+    display: flex; align-items: baseline; gap: var(--space-4);
+    border-bottom: 1px solid var(--border-default);
+    padding-bottom: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+  .ds-section-rule .num {
+    font-family: var(--font-mono);
+    font-size: var(--type-eyebrow-size);
+    letter-spacing: 0.22em;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+  }
+  .ds-section-rule h2 {
+    font-family: var(--font-display);
+    font-size: var(--type-h3-size);
+    letter-spacing: 0.015em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+  .ds-section-intro {
+    font-family: var(--font-body);
+    font-size: var(--type-coord-size);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-5);
+    max-width: 70ch;
+    line-height: 1.6;
+  }
+
+  .ds-palette { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-3); }
+  .ds-swatch {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .ds-swatch-color { height: 70px; }
+  .ds-swatch-meta { padding: 8px 12px 10px; display: flex; flex-direction: column; gap: 2px; }
+  .ds-swatch-meta .name {
+    font-family: var(--font-mono); font-size: var(--type-token-size);
+    color: var(--text-primary); font-weight: 500;
+  }
+  .ds-swatch-meta .hex {
+    font-family: var(--font-mono); font-size: var(--type-meta-size);
+    letter-spacing: 0.06em; color: var(--text-tertiary); text-transform: uppercase;
+  }
+  .ds-swatch-meta .role {
+    font-family: var(--font-body); font-size: var(--type-small-size);
+    color: var(--text-secondary); margin-top: 4px; line-height: 1.4;
+  }
+
+  .ds-family-title {
+    font-family: var(--font-mono); font-size: var(--type-meta-size);
+    letter-spacing: 0.20em; text-transform: uppercase; color: var(--text-tertiary);
+    margin: var(--space-5) 0 var(--space-3);
+    display: flex; align-items: baseline; gap: var(--space-3); flex-wrap: wrap;
+  }
+  .ds-family-tag {
+    font-family: var(--font-body); font-size: 10px; letter-spacing: 0.08em;
+    color: var(--network-700); text-transform: uppercase;
+    border: 1px solid currentColor; padding: 2px 6px; border-radius: var(--radius-sm);
+    font-weight: 500;
+  }
+
+  .ds-typo-row {
+    display: grid; grid-template-columns: 200px 1fr; gap: var(--space-5);
+    align-items: baseline; padding: var(--space-4) 0; border-bottom: 1px solid var(--border-subtle);
+  }
+  .ds-typo-row:last-child { border-bottom: none; }
+  .ds-typo-meta {
+    font-family: var(--font-mono); font-size: var(--type-meta-size);
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-tertiary);
+    line-height: 1.6;
+  }
+  .ds-typo-meta strong {
+    display: block; color: var(--text-primary); font-weight: 500;
+    font-size: var(--type-token-size); letter-spacing: 0.08em; margin-bottom: 2px;
+  }
+
+  .ds-spec-display-xxl { font-family: var(--font-display); font-weight: 400; font-size: clamp(56px, 9vw, 120px); line-height: 0.92; letter-spacing: 0.005em; text-transform: uppercase; color: var(--text-primary); }
+  .ds-spec-h1 { font-family: var(--font-display); font-weight: 400; font-size: var(--type-h1-size); line-height: 1.08; letter-spacing: 0.005em; text-transform: uppercase; color: var(--text-primary); }
+  .ds-spec-display-md { font-family: var(--font-display); font-weight: 400; font-size: var(--type-display-md-size); line-height: 1.02; letter-spacing: 0.005em; text-transform: uppercase; color: var(--text-primary); }
+  .ds-spec-h2 { font-family: var(--font-display); font-size: var(--type-h2-size); line-height: 1.10; letter-spacing: 0.01em; text-transform: uppercase; color: var(--text-primary); }
+  .ds-spec-h3 { font-family: var(--font-display); font-size: var(--type-h3-size); line-height: 1.15; letter-spacing: 0.015em; text-transform: uppercase; color: var(--text-primary); }
+  .ds-spec-h4 { font-family: var(--font-display); font-size: var(--type-h4-size); line-height: 1.20; letter-spacing: 0.02em; text-transform: uppercase; color: var(--text-primary); }
+  .ds-spec-lede { font-family: var(--font-body); font-weight: 300; font-size: var(--type-lede-size); line-height: 1.6; color: var(--text-primary); }
+  .ds-spec-body { font-family: var(--font-body); font-weight: 400; font-size: var(--type-body-size); line-height: 1.65; color: var(--text-secondary); }
+  .ds-spec-small { font-family: var(--font-body); font-weight: 400; font-size: var(--type-small-size); line-height: 1.55; color: var(--text-secondary); }
+  .ds-spec-quote { font-family: var(--font-body); font-style: italic; font-weight: 300; font-size: var(--type-quote-size); line-height: 1.40; color: var(--text-primary); }
+  .ds-spec-meta { font-family: var(--font-mono); font-weight: 400; font-size: var(--type-meta-size); font-variant: small-caps; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-tertiary); }
+  .ds-spec-eyebrow { font-family: var(--font-mono); font-weight: 500; font-size: var(--type-eyebrow-size); letter-spacing: 0.18em; text-transform: uppercase; color: var(--network-700); }
+  .ds-spec-coord { font-family: var(--font-mono); font-size: var(--type-coord-size); letter-spacing: 0.04em; color: var(--text-secondary); }
+  .ds-spec-micro { font-family: var(--font-mono); font-size: var(--type-micro-size); letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-tertiary); }
+
+  .ds-spacing-list { display: flex; flex-direction: column; gap: var(--space-2); }
+  .ds-spacing-row {
+    display: grid; grid-template-columns: 90px 1fr 60px;
+    align-items: center; gap: var(--space-4);
+  }
+  .ds-spacing-row .name {
+    font-family: var(--font-mono); font-size: var(--type-token-size);
+    color: var(--text-primary); letter-spacing: 0.04em;
+  }
+  .ds-spacing-row .bar { height: 14px; background: var(--network-700); border-radius: 2px; }
+  .ds-spacing-row .px {
+    font-family: var(--font-mono); font-size: var(--type-meta-size);
+    color: var(--text-tertiary); text-align: right; letter-spacing: 0.06em;
+  }
+
+  .ds-radii { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); }
+  @media (max-width: 720px) { .ds-radii { grid-template-columns: repeat(2, 1fr); } }
+  .ds-radius {
+    background: var(--bg-surface); border: 1px solid var(--border-default);
+    height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  }
+  .ds-radius .label {
+    font-family: var(--font-mono); font-size: var(--type-token-size);
+    color: var(--text-primary); letter-spacing: 0.04em;
+  }
+  .ds-radius .px {
+    font-family: var(--font-mono); font-size: var(--type-meta-size);
+    color: var(--text-tertiary); letter-spacing: 0.06em;
+  }
+
+  .ds-shadows { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5); }
+  @media (max-width: 720px) { .ds-shadows { grid-template-columns: 1fr; } }
+  .ds-shadow {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg); padding: var(--space-5); height: 110px;
+    display: flex; flex-direction: column; gap: 4px; justify-content: center;
+  }
+  .ds-shadow.sm { box-shadow: var(--shadow-sm); }
+  .ds-shadow.md { box-shadow: var(--shadow-md); }
+  .ds-shadow.lg { box-shadow: var(--shadow-lg); }
+  .ds-shadow .label {
+    font-family: var(--font-mono); font-size: var(--type-token-size);
+    color: var(--text-primary); letter-spacing: 0.04em; font-weight: 500;
+  }
+  .ds-shadow .desc {
+    font-family: var(--font-body); font-size: var(--type-small-size); color: var(--text-secondary);
+  }
+
+  .ds-component-block {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg); padding: var(--space-5); margin-bottom: var(--space-4);
+  }
+  .ds-block-title {
+    font-family: var(--font-mono); font-size: var(--type-meta-size);
+    letter-spacing: 0.20em; text-transform: uppercase; color: var(--text-tertiary);
+    margin-bottom: var(--space-4);
+  }
+  .ds-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+
+  .oz-btn {
+    display: inline-flex; align-items: center; gap: var(--space-2);
+    padding: 12px 20px; font-family: var(--font-body); font-weight: 500;
+    font-size: var(--type-token-size); letter-spacing: 0.14em;
+    text-transform: uppercase; border-radius: var(--radius-md);
+    border: 1px solid transparent; cursor: pointer;
+  }
+  .oz-btn.primary { background: var(--action-default); color: var(--neutral-100); }
+  .oz-btn.primary:hover { background: var(--action-hover); }
+  .oz-btn.secondary { background: var(--bg-surface); color: var(--text-primary); border-color: var(--border-default); }
+  .oz-btn.ghost { background: transparent; color: var(--text-secondary); border-color: var(--border-subtle); }
+  .oz-btn.ghost:hover { background: var(--network-300); color: var(--network-700); border-color: var(--network-500); }
+
+  .oz-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; font-family: var(--font-mono); font-size: var(--type-meta-size);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    border-radius: var(--radius-pill); border: 1px solid var(--border-default);
+    color: var(--text-secondary); background: var(--bg-surface);
+  }
+  .oz-pill .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .oz-pill[data-state="amont"]    { color: #4E4360; border-color: #BAAFC2; background: rgba(186,175,194,0.18); }
+  .oz-pill[data-state="amont"] .dot    { background: #BAAFC2; }
+  .oz-pill[data-state="etudes"]   { color: #7A5224; border-color: #E8C282; background: rgba(232,194,130,0.18); }
+  .oz-pill[data-state="etudes"] .dot   { background: #D4A975; }
+  .oz-pill[data-state="chantier"] { color: #5A1F2E; border-color: #B5483A; background: rgba(213,138,118,0.20); }
+  .oz-pill[data-state="chantier"] .dot { background: #B5483A; }
+  .oz-pill[data-state="realise"]  { color: #5F7066; border-color: #8FA597; background: rgba(143,165,151,0.22); }
+  .oz-pill[data-state="realise"] .dot  { background: #5F7066; }
+  .oz-pill[data-state="arrete"]   { color: var(--text-tertiary); border-color: var(--border-default); background: var(--bg-surface); }
+  .oz-pill[data-state="arrete"] .dot   { background: var(--text-tertiary); }
+
+  .oz-eyebrow {
+    font-family: var(--font-mono); font-size: var(--type-eyebrow-size);
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--network-500);
+  }
+
+  .oz-input {
+    padding: 10px 12px; background: var(--bg-canvas);
+    border: 1px solid var(--border-default); border-radius: var(--radius-md);
+    font-family: var(--font-body); font-size: var(--type-coord-size);
+    color: var(--text-primary); width: 100%;
+  }
+  .oz-input:focus { outline: none; border-color: var(--network-500); box-shadow: 0 0 0 3px var(--focus-ring); }
+
+  .oz-slate-demo {
+    display: inline-flex; flex-direction: column;
+    font-family: var(--font-mono); font-size: var(--type-micro-size);
+    font-variant: small-caps; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-tertiary); line-height: 1.3;
+    border-right: 1px solid var(--border-subtle);
+    padding-right: var(--space-3); align-items: flex-end;
+  }
+  .oz-slate-demo .h { color: var(--network-500); }
+
+  .oz-letterbox-demo {
+    background: var(--neutral-900); height: 36px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 var(--space-5); font-family: var(--font-mono);
+    font-size: var(--type-micro-size); font-variant: small-caps;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(240, 235, 223, 0.65);
+    border-radius: var(--radius-sm); margin-top: var(--space-2);
+  }
+
+  .oz-toast-demo {
+    display: inline-flex; align-items: center; gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-emphasis); color: var(--text-on-emphasis);
+    border-radius: var(--radius-md); box-shadow: var(--shadow-lg);
+    font-family: var(--font-body); font-size: var(--type-coord-size);
+  }
+  .oz-toast-demo .close {
+    font-family: var(--font-mono); font-size: var(--type-h4-size);
+    color: rgba(240, 235, 223, 0.6);
+    background: none; border: none; padding: 0 4px;
+  }
+
+  .oz-card-demo {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-sm);
+    padding: var(--space-5);
+    display: flex; flex-direction: column; gap: var(--space-3);
+    max-width: 280px;
+  }
+  .oz-card-demo .num {
+    font-family: var(--font-display); font-size: 36px; line-height: 1;
+    color: var(--network-500); letter-spacing: 0.01em;
+  }
+  .oz-card-demo .label {
+    font-family: var(--font-mono); font-size: var(--type-meta-size);
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-tertiary);
+  }
+  .oz-card-demo h4 {
+    font-family: var(--font-display); font-size: var(--type-h4-size);
+    letter-spacing: 0.02em; text-transform: uppercase; color: var(--text-primary);
+  }
+  .oz-card-demo p {
+    font-family: var(--font-body); font-size: var(--type-small-size);
+    line-height: 1.55; color: var(--text-secondary);
+  }
+
+  .oz-section-rule-demo {
+    display: flex; align-items: baseline; gap: var(--space-4);
+    border-bottom: 1px solid var(--border-default); padding-bottom: var(--space-3);
+  }
+  .oz-section-rule-demo .num {
+    font-family: var(--font-mono); font-size: var(--type-eyebrow-size);
+    letter-spacing: 0.18em; color: var(--text-tertiary);
+  }
+  .oz-section-rule-demo h2 {
+    font-family: var(--font-display); font-size: var(--type-h3-size);
+    letter-spacing: 0.015em; text-transform: uppercase; color: var(--text-primary);
+  }
+
+  .ds-motion-row {
+    display: grid; grid-template-columns: 140px 1fr 100px;
+    gap: var(--space-4); align-items: center;
+    padding: var(--space-3) 0; border-bottom: 1px solid var(--border-subtle);
+  }
+  .ds-motion-row:last-child { border-bottom: none; }
+  .ds-motion-row .name {
+    font-family: var(--font-mono); font-size: var(--type-token-size);
+    letter-spacing: 0.04em; color: var(--text-primary);
+  }
+  .ds-motion-row .duration {
+    font-family: var(--font-mono); font-size: var(--type-meta-size);
+    color: var(--text-tertiary); letter-spacing: 0.08em; text-align: right;
+  }
+  .ds-motion-track {
+    position: relative; height: 18px;
+    background: color-mix(in srgb, var(--network-300) 40%, transparent);
+    border-radius: 999px; overflow: hidden;
+  }
+  .ds-motion-track::before {
+    content: '';
+    position: absolute; left: 0; top: 0;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--network-700);
+    animation: ds-motion-glide 2s var(--ease-default) infinite alternate;
+  }
+  .ds-motion-track[data-d="fast"]::before   { animation-duration: var(--duration-fast); }
+  .ds-motion-track[data-d="medium"]::before { animation-duration: var(--duration-medium); }
+  .ds-motion-track[data-d="slow"]::before   { animation-duration: var(--duration-slow); }
+  @keyframes ds-motion-glide { from { left: 0 } to { left: calc(100% - 18px) } }
+  @media (prefers-reduced-motion: reduce) {
+    .ds-motion-track::before { animation: none; left: calc(100% - 18px); }
+  }
+
+  .ds-rules { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+  @media (max-width: 720px) { .ds-rules { grid-template-columns: 1fr; } }
+  .ds-rule {
+    background: var(--bg-surface); border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md); padding: var(--space-4);
+  }
+  .ds-rule-tag {
+    font-family: var(--font-mono); font-size: var(--type-meta-size);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--network-700); margin-bottom: var(--space-2);
+  }
+  .ds-rule.is-anti .ds-rule-tag { color: var(--signal-500); }
+  .ds-rule p {
+    font-family: var(--font-body); font-size: var(--type-small-size);
+    color: var(--text-secondary); line-height: 1.55;
+  }
+  .ds-rule strong { font-weight: 600; color: var(--text-primary); }
+  .ds-rule code {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-primary); background: var(--bg-canvas);
+    padding: 1px 4px; border-radius: 2px;
+  }
+
+  .ds-footer {
+    margin-top: var(--space-9); padding-top: var(--space-5);
+    border-top: 1px solid var(--border-default);
+    font-family: var(--font-mono); font-size: var(--type-meta-size);
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-tertiary);
+    display: flex; flex-wrap: wrap; gap: var(--space-5);
+    justify-content: space-between;
+  }
+  .ds-footer a { color: var(--network-700); text-decoration: none; }
+
+  :where(button, a[href], [tabindex]:not([tabindex="-1"])):focus-visible {
+    outline: 2px solid var(--network-500);
+    outline-offset: 2px;
+  }
+  .oz-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--focus-ring);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<main class="ds-shell">
+
+  <a href="/" class="ds-back">← Retour à l'observatoire</a>
+
+  <p class="ds-eyebrow">Design system · v6 · dawn-only · network accent</p>
+  <h1>Open Zones Act<span style="color: var(--network-500)">.</span></h1>
+  <p class="ds-lede">
+    Snapshot du système de design utilisé par le site. <em>20 tokens chromatiques en 5 familles + 1 signal réservé,
+    3 polices verrouillées, base d'espacement 4px, animation quasi absente, aucun emoji.</em>
+    Le site est figé sur l'heure dawn (heure bleue, 05·42 pre-dawn) et l'accent UI utilise désormais
+    la famille <strong>network</strong> (violet brumeux), précédemment réservée aux zones commerciales sur la carte.
+    La famille <strong>signal</strong> (Paris/Texas) est conservée pour le moment brand du logo Deuxième Acte
+    dans le footer.
+  </p>
+
+  <section>
+    <div class="ds-section-rule">
+      <span class="num">I ·</span>
+      <h2>Palette · 20 tokens, 5 familles + signal + plum</h2>
+    </div>
+    <p class="ds-section-intro">
+      Désaturée, chaude, terreuse. Aucune couleur saturée pure ne traverse le système, sauf le duo Paris/Texas
+      réservé aux signaux. Inspiration cinéma Wenders, peinture Hopper.
+    </p>
+
+    <p class="ds-family-title">Neutral · fonds, contours, texte</p>
+    <div class="ds-palette">
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#F0EBDF"></div><div class="ds-swatch-meta"><span class="name">--neutral-100</span><span class="hex">#F0EBDF</span><span class="role">crème pellicule, text on emphasis</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#D6CFC0"></div><div class="ds-swatch-meta"><span class="name">--neutral-200</span><span class="hex">#D6CFC0</span><span class="role">border-subtle</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#A8A097"></div><div class="ds-swatch-meta"><span class="name">--neutral-400</span><span class="hex">#A8A097</span><span class="role">border-default</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#2C2820"></div><div class="ds-swatch-meta"><span class="name">--neutral-900</span><span class="hex">#2C2820</span><span class="role">text-primary, bg-emphasis</span></div></div>
+    </div>
+
+    <p class="ds-family-title">Green · sols perméables, parcs</p>
+    <div class="ds-palette">
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#BBC5BB"></div><div class="ds-swatch-meta"><span class="name">--green-300</span><span class="hex">#BBC5BB</span><span class="role">vert clair perméable</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#8FA597"></div><div class="ds-swatch-meta"><span class="name">--green-500</span><span class="hex">#8FA597</span><span class="role">pill « réalisé »</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#5F7066"></div><div class="ds-swatch-meta"><span class="name">--green-700</span><span class="hex">#5F7066</span><span class="role">parc dense, label réalisé</span></div></div>
+    </div>
+
+    <p class="ds-family-title">Water (monopole) · eau uniquement <span class="ds-family-tag">monopole</span></p>
+    <div class="ds-palette">
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#DCE6E8"></div><div class="ds-swatch-meta"><span class="name">--water-100</span><span class="hex">#DCE6E8</span><span class="role">eau de surface</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#8AAFB6"></div><div class="ds-swatch-meta"><span class="name">--water-400</span><span class="hex">#8AAFB6</span><span class="role">rivière, mer</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#3C5E68"></div><div class="ds-swatch-meta"><span class="name">--water-700</span><span class="hex">#3C5E68</span><span class="role">eau profonde</span></div></div>
+    </div>
+
+    <p class="ds-family-title">Network (monopole · accent UI actuel) · commerce + axes routiers <span class="ds-family-tag">monopole · accent</span></p>
+    <div class="ds-palette">
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#BAAFC2"></div><div class="ds-swatch-meta"><span class="name">--network-300</span><span class="hex">#BAAFC2</span><span class="role">soft lilac, hover light, ghost wash</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#8C7B96"></div><div class="ds-swatch-meta"><span class="name">--network-500</span><span class="hex">#8C7B96</span><span class="role">action-default, zone commerciale carte</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#4E4360"></div><div class="ds-swatch-meta"><span class="name">--network-700</span><span class="hex">#4E4360</span><span class="role">action-hover, accent text, autoroute</span></div></div>
+    </div>
+
+    <p class="ds-family-title">Warm · sodium, bâti, artères</p>
+    <div class="ds-palette">
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#E8C282"></div><div class="ds-swatch-meta"><span class="name">--warm-300</span><span class="hex">#E8C282</span><span class="role">enseigne sodium</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#D4A975"></div><div class="ds-swatch-meta"><span class="name">--warm-400</span><span class="hex">#D4A975</span><span class="role">pill « études »</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#7A5224"></div><div class="ds-swatch-meta"><span class="name">--warm-700</span><span class="hex">#7A5224</span><span class="role">artère urbaine, label études</span></div></div>
+    </div>
+
+    <p class="ds-family-title">Signal (réservé brand moment) · Paris/Texas <span class="ds-family-tag">brand uniquement</span></p>
+    <div class="ds-palette">
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#F5DDD7"></div><div class="ds-swatch-meta"><span class="name">--signal-100</span><span class="hex">#F5DDD7</span><span class="role">aurore très pâle</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#D63A6E"></div><div class="ds-swatch-meta"><span class="name">--signal-400</span><span class="hex">#D63A6E</span><span class="role">magenta de Jane, footer DA logo glow</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#B5483A"></div><div class="ds-swatch-meta"><span class="name">--signal-500</span><span class="hex">#B5483A</span><span class="role">rouge Travis, pill « chantier »</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#5A1F2E"></div><div class="ds-swatch-meta"><span class="name">--signal-700</span><span class="hex">#5A1F2E</span><span class="role">deep wine, label chantier</span></div></div>
+    </div>
+
+    <p class="ds-family-title">Plum · footer toujours sombre</p>
+    <div class="ds-palette">
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#1F1830"></div><div class="ds-swatch-meta"><span class="name">--plum-deep</span><span class="hex">#1F1830</span><span class="role">footer top</span></div></div>
+      <div class="ds-swatch"><div class="ds-swatch-color" style="background:#15101F"></div><div class="ds-swatch-meta"><span class="name">--plum-deeper</span><span class="hex">#15101F</span><span class="role">footer bottom</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="ds-section-rule">
+      <span class="num">II ·</span>
+      <h2>Typographie · 3 polices, jamais mélangées</h2>
+    </div>
+    <p class="ds-section-intro">
+      Anton (display, all-caps, single weight), Supreme (body, prose, UI), JetBrains Mono (data, métadonnées, cartouches).
+      Échelle base 16px, ratios serrés (1.125 à 1.2 entre les pas).
+    </p>
+
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>display-xxl</strong>Anton, 80 à 220px<br/>line-height 0.92</div><span class="ds-spec-display-xxl">06.42</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>h1</strong>Anton, 40 à 68px<br/>line-height 1.08</div><span class="ds-spec-h1">Galerie des projets.</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>display-md</strong>Anton, 28 à 44px<br/>line-height 1.02</div><span class="ds-spec-display-md">Observatoire national</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>h2</strong>Anton, 32px<br/>line-height 1.10</div><span class="ds-spec-h2">Métadonnées</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>h3</strong>Anton, 22px<br/>line-height 1.15</div><span class="ds-spec-h3">Légende</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>h4</strong>Anton, 16px<br/>line-height 1.20</div><span class="ds-spec-h4">Centraliser</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>lede</strong>Supreme 300, 16px<br/>line-height 1.6</div><span class="ds-spec-lede">Open Zones Act est la 1<sup>ère</sup> base de données internationale collaborative.</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>body</strong>Supreme 400, 14.5px<br/>line-height 1.65</div><span class="ds-spec-body">La transformation des entrées de ville et des zones d'activités monofonctionnelles vieillissantes représente un gisement de fonciers déjà imperméabilisés.</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>small</strong>Supreme 400, 12.5px<br/>line-height 1.55</div><span class="ds-spec-small">Tous formats confondus, sources publiques + relevés in situ.</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>quote</strong>Supreme 300 italic, 18px<br/>line-height 1.40</div><span class="ds-spec-quote">« On dirait Houston en miniature, posé entre Aix et Marseille »</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>eyebrow</strong>JetBrains Mono 500, 11px<br/>tracking 0.22em, network-700</div><span class="ds-spec-eyebrow">II · Galerie · 14 fiches</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>meta</strong>JetBrains Mono 400, 10px<br/>tracking 0.18em, small-caps</div><span class="ds-spec-meta">Provence-Alpes-Côte d'Azur</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>coord</strong>JetBrains Mono, 13px<br/>tracking 0.04em</div><span class="ds-spec-coord">43.4567° N · 5.4321° E</span></div>
+    <div class="ds-typo-row"><div class="ds-typo-meta"><strong>micro</strong>JetBrains Mono, 9px<br/>tracking 0.16em uppercase</div><span class="ds-spec-micro">N° 03 · Pays de la Loire</span></div>
+  </section>
+
+  <section>
+    <div class="ds-section-rule">
+      <span class="num">III ·</span>
+      <h2>Espacement · base 4 (1 à 9)</h2>
+    </div>
+    <p class="ds-section-intro">Une seule échelle, jamais de valeurs hors-grille. Les paddings utilisent <code class="ds-rule-code">clamp()</code> uniquement pour les marges latérales fluides.</p>
+    <div class="ds-spacing-list">
+      <div class="ds-spacing-row"><span class="name">--space-1</span><span class="bar" style="width:4px"></span><span class="px">4px</span></div>
+      <div class="ds-spacing-row"><span class="name">--space-2</span><span class="bar" style="width:8px"></span><span class="px">8px</span></div>
+      <div class="ds-spacing-row"><span class="name">--space-3</span><span class="bar" style="width:12px"></span><span class="px">12px</span></div>
+      <div class="ds-spacing-row"><span class="name">--space-4</span><span class="bar" style="width:16px"></span><span class="px">16px</span></div>
+      <div class="ds-spacing-row"><span class="name">--space-5</span><span class="bar" style="width:24px"></span><span class="px">24px</span></div>
+      <div class="ds-spacing-row"><span class="name">--space-6</span><span class="bar" style="width:32px"></span><span class="px">32px</span></div>
+      <div class="ds-spacing-row"><span class="name">--space-7</span><span class="bar" style="width:48px"></span><span class="px">48px</span></div>
+      <div class="ds-spacing-row"><span class="name">--space-8</span><span class="bar" style="width:64px"></span><span class="px">64px</span></div>
+      <div class="ds-spacing-row"><span class="name">--space-9</span><span class="bar" style="width:80px"></span><span class="px">80px</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="ds-section-rule">
+      <span class="num">IV ·</span>
+      <h2>Rayons · échelle stricte</h2>
+    </div>
+    <p class="ds-section-intro">Rien de plus arrondi que 10px sauf pills 999px. Pas d'arrondi décoratif.</p>
+    <div class="ds-radii">
+      <div class="ds-radius" style="border-radius: 3px"><span class="label">--radius-sm</span><span class="px">3px</span></div>
+      <div class="ds-radius" style="border-radius: 6px"><span class="label">--radius-md</span><span class="px">6px</span></div>
+      <div class="ds-radius" style="border-radius: 10px"><span class="label">--radius-lg</span><span class="px">10px</span></div>
+      <div class="ds-radius" style="border-radius: 999px"><span class="label">--radius-pill</span><span class="px">999px</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="ds-section-rule">
+      <span class="num">V ·</span>
+      <h2>Ombres · 3 niveaux, noir chaud uniquement</h2>
+    </div>
+    <p class="ds-section-intro">rgba(44, 40, 32, *), jamais en gris-bleu froid. Discrètes, pour la lisibilité d'élévation.</p>
+    <div class="ds-shadows">
+      <div class="ds-shadow sm"><span class="label">--shadow-sm</span><span class="desc">cartes simples</span></div>
+      <div class="ds-shadow md"><span class="label">--shadow-md</span><span class="desc">toolbars, tooltips</span></div>
+      <div class="ds-shadow lg"><span class="label">--shadow-lg</span><span class="desc">élévations importantes</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="ds-section-rule">
+      <span class="num">VI ·</span>
+      <h2>Composants</h2>
+    </div>
+    <p class="ds-section-intro">Conventions <strong>.oz-*</strong> portées par le port HTML/CSS du prototype.</p>
+
+    <div class="ds-component-block">
+      <div class="ds-block-title">Buttons</div>
+      <div class="ds-row">
+        <button type="button" class="oz-btn primary">Primary</button>
+        <button type="button" class="oz-btn secondary">Secondary</button>
+        <button type="button" class="oz-btn ghost">Ghost</button>
+      </div>
+    </div>
+
+    <div class="ds-component-block">
+      <div class="ds-block-title">Pills · état d'avancement</div>
+      <div class="ds-row">
+        <span class="oz-pill" data-state="amont"><span class="dot"></span>Amont</span>
+        <span class="oz-pill" data-state="etudes"><span class="dot"></span>Études</span>
+        <span class="oz-pill" data-state="chantier"><span class="dot"></span>Chantier</span>
+        <span class="oz-pill" data-state="realise"><span class="dot"></span>Réalisé</span>
+        <span class="oz-pill" data-state="arrete"><span class="dot"></span>Arrêté</span>
+      </div>
+    </div>
+
+    <div class="ds-component-block">
+      <div class="ds-block-title">Eyebrow + section-rule</div>
+      <p class="oz-eyebrow" style="margin-bottom: 8px">II · Galerie · 14 fiches</p>
+      <div class="oz-section-rule-demo">
+        <span class="num">III ·</span>
+        <h2>Métadonnées</h2>
+      </div>
+    </div>
+
+    <div class="ds-component-block">
+      <div class="ds-block-title">Inputs</div>
+      <div class="ds-row" style="flex-direction: column; align-items: stretch; gap: var(--space-3); max-width: 400px">
+        <input type="text" class="oz-input" placeholder="Rechercher un toponyme, une commune…">
+        <input type="email" class="oz-input" placeholder="contact@open-zones-act.fr">
+      </div>
+    </div>
+
+    <div class="ds-component-block">
+      <div class="ds-block-title">Carte « promesse » (Home)</div>
+      <div class="oz-card-demo">
+        <span class="num">01</span>
+        <h4>Centraliser</h4>
+        <p>Une base unique des projets de mutation, sources publiques, contributions des collectivités, relevés in situ.</p>
+        <span class="label">Méthode</span>
+      </div>
+    </div>
+
+    <div class="ds-component-block">
+      <div class="ds-block-title">Slate cartouche · clap de tournage</div>
+      <div class="ds-row">
+        <div class="oz-slate-demo">
+          <span class="h">05·42 — pre-dawn</span>
+          <span>I · Observatoire</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-component-block">
+      <div class="ds-block-title">Letterbox cinemascope</div>
+      <div class="oz-letterbox-demo">
+        <span>OZA · 2026</span>
+        <span>FR · 1.85:1</span>
+      </div>
+    </div>
+
+    <div class="ds-component-block">
+      <div class="ds-block-title">Toast · feedback éphémère</div>
+      <div class="oz-toast-demo">
+        <span>Le formulaire de contribution arrive bientôt. En attendant : contribuer@open-zones-act.fr</span>
+        <button type="button" class="close" aria-label="Fermer">✕</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="ds-section-rule">
+      <span class="num">VII ·</span>
+      <h2>Motion · quasi absente, easing canonique</h2>
+    </div>
+    <p class="ds-section-intro">Transitions CSS uniquement. Aucun spring, aucun bounce, aucun scroll-jacking. Tout est gated derrière <strong>@media (prefers-reduced-motion: no-preference)</strong> quand l'animation est non-essentielle.</p>
+    <div>
+      <div class="ds-motion-row"><span class="name">--duration-fast</span><div class="ds-motion-track" data-d="fast"></div><span class="duration">0.15s</span></div>
+      <div class="ds-motion-row"><span class="name">--duration-medium</span><div class="ds-motion-track" data-d="medium"></div><span class="duration">0.30s</span></div>
+      <div class="ds-motion-row"><span class="name">--duration-slow</span><div class="ds-motion-track" data-d="slow"></div><span class="duration">0.40s</span></div>
+      <div class="ds-motion-row"><span class="name">--ease-default</span><div style="font-family: var(--font-mono); font-size: var(--type-meta-size); color: var(--text-secondary); letter-spacing: 0.04em">cubic-bezier(0.4, 0, 0.2, 1)</div><span class="duration">ease-out</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="ds-section-rule">
+      <span class="num">VIII ·</span>
+      <h2>Règles & verrous</h2>
+    </div>
+    <p class="ds-section-intro">Principes stratégiques + bans. Le DS sert l'usage métier ; le « feel » éditorial vient en complément.</p>
+    <div class="ds-rules">
+      <div class="ds-rule"><div class="ds-rule-tag">Verrou · 3 monopoles</div><p><strong>Eau</strong> bleu cendré uniquement. <strong>Commerce + axes</strong> violet grisé (network). <strong>Signal</strong> Paris/Texas réservé brand moment.</p></div>
+      <div class="ds-rule"><div class="ds-rule-tag">Verrou · 3 polices</div><p><strong>Anton</strong> display single-weight all-caps. <strong>Supreme</strong> body 300/400/500/700 + 300i. <strong>JetBrains Mono</strong> data 400/500.</p></div>
+      <div class="ds-rule"><div class="ds-rule-tag">Voix éditoriale</div><p>Sobre, urbaniste-éditoriale, précise. Voix collective (« on »), pas commerciale. Vocabulaire signature : <em>marge, périphérie, sodium, plum, monopole, échelle, cartouche, slate</em>.</p></div>
+      <div class="ds-rule"><div class="ds-rule-tag">Accessibilité</div><p>WCAG AA cible plancher (4.5:1 texte normal, 3:1 large). Focus visibles partout. Ordre tabulation = ordre visuel. <strong>prefers-reduced-motion</strong> strictement respecté.</p></div>
+      <div class="ds-rule is-anti"><div class="ds-rule-tag">Ban · aucun emoji</div><p>Glyphes Unicode admis : <code>·</code> <code>—</code> <code>↗</code> <code>●</code> <code>°</code> <code>−</code>.</p></div>
+      <div class="ds-rule is-anti"><div class="ds-rule-tag">Ban · side-stripe color</div><p>Pas de <code>border-left</code> coloré supérieur à 1px sur cartes, list-items, callouts. Réécrire avec borders pleines, background-tint ou nombres.</p></div>
+      <div class="ds-rule is-anti"><div class="ds-rule-tag">Ban · gradient text</div><p><code>background-clip: text</code> sur gradient. Décoratif, jamais signifiant. Une couleur solide, emphase via poids ou taille.</p></div>
+      <div class="ds-rule is-anti"><div class="ds-rule-tag">Anti-références</div><p><strong>SaaS marketing générique</strong>, dashboards templates Tailwind/shadcn par défaut, <strong>esthétique retail park</strong> (jaune criard, bandeaux promo), civic-tech aride.</p></div>
+    </div>
+  </section>
+
+  <footer class="ds-footer">
+    <span>OZA · DS v6 · dawn-only · network accent</span>
+    <span>tokens.css + app.css · src/styles/</span>
+    <a href="/">↗ Retour au site</a>
+  </footer>
+
+</main>
+
+</body>
+</html>

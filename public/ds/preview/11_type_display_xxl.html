@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>Display XXL</title>
+<link rel="stylesheet" href="_card.css">
+<style>
+.bg{background:linear-gradient(180deg,#251E36 0%,#2E2540 60%,#3A2E48 100%);padding:var(--space-6) var(--space-5);border-radius:var(--radius-md);position:relative;overflow:hidden}
+.bg::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 25% 30%,rgba(232,194,130,0.08) 0%,transparent 1.5px),radial-gradient(circle at 75% 70%,rgba(214,58,110,0.08) 0%,transparent 1.5px);background-size:9px 9px,13px 13px;opacity:.7;pointer-events:none}
+.eye{font-family:var(--font-body);font-weight:500;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,223,0.55);margin-bottom:var(--space-4);position:relative;z-index:1}
+.xxl{font-family:var(--font-display);font-size:128px;line-height:.92;letter-spacing:.005em;text-transform:uppercase;background:linear-gradient(135deg,#E8C282 0%,#F5DDD7 35%,#D63A6E 70%,#B5483A 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;display:block;position:relative;z-index:1}
+</style></head><body><div class="card">
+<div class="bg">
+  <div class="eye">Spécimen · Anton · 128px · gradient sodium → magenta · usage exceptionnel</div>
+  <div class="xxl">Aa Gg Rg</div>
+</div>
+</div></body></html>
