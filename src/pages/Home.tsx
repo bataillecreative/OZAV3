@@ -1,142 +1,198 @@
-import { PROJECTS } from '../data/projects';
-import { Pill } from '../components/Pill';
 import type { Route } from '../lib/router';
+import { useReveal } from '../lib/useReveal';
 
 interface HomeProps {
   navigate: (r: Route) => void;
   onContribute: () => void;
-  openProject: (id: string) => void;
 }
 
-export function Home({ navigate, onContribute, openProject }: HomeProps) {
-  const recent = PROJECTS.slice(0, 5);
+const KPIS: { label: string; value: string }[] = [
+  { label: 'Fiches publiées',     value: '142' },
+  { label: 'Projets en chantier', value: '67' },
+  { label: 'Régions couvertes',   value: '12' },
+  { label: 'Dernière mise à jour', value: '2026·04·28' },
+];
+
+const POIS: { x: number; y: number }[] = [
+  { x: 52, y: 30 }, // Paris
+  { x: 62, y: 14 }, // Lille
+  { x: 86, y: 32 }, // Strasbourg
+  { x: 22, y: 38 }, // Rennes
+  { x: 22, y: 50 }, // Nantes
+  { x: 30, y: 66 }, // Bordeaux
+  { x: 44, y: 76 }, // Toulouse
+  { x: 68, y: 78 }, // Marseille
+  { x: 84, y: 78 }, // Nice
+  { x: 66, y: 56 }, // Lyon
+];
+
+const FRANCE_PATH =
+  'M 60 10 L 70 12 L 75 18 L 84 22 L 90 30 L 92 40 L 86 50 L 92 56 L 90 68 ' +
+  'L 84 76 L 78 84 L 70 88 L 56 90 L 48 88 L 38 86 L 28 82 L 22 76 L 16 70 ' +
+  'L 12 60 L 14 50 L 10 42 L 6 36 L 14 30 L 22 28 L 30 22 L 40 16 L 50 12 Z';
+
+export function Home({ navigate, onContribute }: HomeProps) {
+  const stats = useReveal();
+  const mapviz = useReveal();
+  const editorial = useReveal();
+
+  const cls = (revealed: boolean) =>
+    `is-reveal-target${revealed ? ' is-revealed' : ''}`;
 
   return (
     <main>
       <section className="oz-home-hero">
         <div className="oz-container">
-          <div className="oz-eyebrow oz-home-hero-eyebrow">Observatoire · 2026 · v1</div>
-          <div className="oz-home-hero-split">
+          <div className="oz-home-hero-stack">
             <h1 className="oz-home-hero-title">
               Observatoire national<br />
-              de la transformation des <span className="accent">entrées de ville</span><br />
-              et des <span className="accent">zones commerciales</span><span className="accent">.</span>
+              de la transformation des entrées de ville et des zones commerciales
             </h1>
-            <div className="oz-home-hero-side">
-              <p className="oz-home-hero-lede">
-                <strong>Open Zones Act</strong> est la 1<sup>ère</sup> base de données
-                internationale collaborative qui centralise, géolocalise, valorise
-                et diffuse les données des projets de transformation d'entrées de
-                ville et de zones commerciales.
-              </p>
-              <div className="oz-home-hero-stats">
-                <div className="oz-home-hero-stat">
-                  <div className="num">{PROJECTS.length}</div>
-                  <div className="label">Fiches référencées</div>
-                </div>
-                <div className="oz-home-hero-stat">
-                  <div className="num">5</div>
-                  <div className="label">États suivis</div>
-                </div>
-                <div className="oz-home-hero-stat">
-                  <div className="num">12</div>
-                  <div className="label">Régions couvertes</div>
-                </div>
-              </div>
-              <div className="oz-home-hero-actions">
-                <button className="oz-btn primary lg" onClick={onContribute}>
-                  Contribuer une fiche ↗
-                </button>
-                <div className="oz-home-hero-actions-sub">
-                  <button className="oz-btn ghost" onClick={() => navigate('carte')}>
-                    Ouvrir la carte
-                  </button>
-                  <button className="oz-btn ghost" onClick={() => navigate('galerie')}>
-                    Parcourir la galerie
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="oz-band">
-        <div className="oz-container">
-          <div className="oz-band-grid">
-            <div className="oz-band-text">
-              <div className="oz-eyebrow">L'observatoire</div>
-              <h2>Pourquoi Open Zones Act ?</h2>
-              <p>
-                La transformation des entrées de ville et des zones d'activités monofonctionnelles
-                vieillissantes est un enjeu majeur pour répondre aux défis écologiques, climatiques
-                et socio-économiques. Elle représente un gisement de fonciers déjà imperméabilisés
-                et valorisables évalué à 80 000 ha.
-              </p>
-              <p>
-                Open Zones Act apporte à tous les acteurs de cette transformation la connaissance,
-                les informations et les inspirations nécessaires à l'engagement et à la réussite
-                de leur projet, dans une logique d'essaimage.
-              </p>
-              <p>
-                La plateforme pallie la dispersion, l'incomplétude et l'inaccessibilité des données
-                de projets — qui freinent aujourd'hui leur valorisation et la transmission des
-                bonnes pratiques.
-              </p>
-            </div>
-            <div className="oz-band-cards">
-              <div className="oz-promise-card">
-                <div className="num">01</div>
-                <h4>Centraliser</h4>
-                <p>Une base unique des projets de mutation — sources publiques, contributions des collectivités, relevés in situ.</p>
-                <div className="label">Méthode</div>
-              </div>
-              <div className="oz-promise-card">
-                <div className="num">02</div>
-                <h4>Géolocaliser</h4>
-                <p>Chaque fiche est ancrée par ses coordonnées, sa commune, son EPCI, ses axes desservants.</p>
-                <div className="label">Cadre</div>
-              </div>
-              <div className="oz-promise-card">
-                <div className="num">03</div>
-                <h4>Valoriser</h4>
-                <p>Documenter par l'image et par l'éditorial — ne pas se contenter du tableur.</p>
-                <div className="label">Posture</div>
-              </div>
-              <div className="oz-promise-card">
-                <div className="num">04</div>
-                <h4>Diffuser</h4>
-                <p>Donnée ouverte, planches imprimables, accès libre. Le commun avant le service.</p>
-                <div className="label">Diffusion</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="oz-recent">
-        <div className="oz-container">
-          <div className="oz-section-rule">
-            <span className="num">II ·</span>
-            <h2>Dernières fiches versées</h2>
-          </div>
-          <div className="oz-recent-list">
-            {recent.map((p, i) => (
+            <p className="oz-home-hero-lede">
+              <strong>Open Zones Act</strong> est la 1<sup>ère</sup> base de données
+              internationale collaborative qui centralise, géolocalise, valorise
+              et diffuse les données des projets de transformation d'entrées de
+              ville et de zones commerciales.
+            </p>
+            <div className="oz-home-hero-actions">
               <button
-                key={p.id}
                 type="button"
-                className="oz-recent-row"
-                onClick={() => openProject(p.id)}
-                aria-label={`Ouvrir la fiche · ${p.toponym}, ${p.commune}`}
+                className="oz-btn ghost"
+                onClick={() => navigate('carte')}
               >
-                <span className="index">N° {String(i + 1).padStart(2, '0')}</span>
-                <span className="name">{p.toponym}</span>
-                <span className="meta">{p.commune}</span>
-                <span className="typo">{p.typologie}</span>
-                <span className="ha">{p.surface} ha</span>
-                <Pill state={p.etat}>{p.etatLabel}</Pill>
+                Recherche par localisation
               </button>
+              <button
+                type="button"
+                className="oz-btn ghost"
+                onClick={() => navigate('galerie')}
+              >
+                Critères de recherche avancés
+              </button>
+              <button
+                type="button"
+                className="oz-btn primary"
+                onClick={onContribute}
+              >
+                + Ajouter un projet
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        ref={stats.ref}
+        className={`oz-home-stats ${cls(stats.revealed)}`}
+        aria-label="État de la base"
+      >
+        <div className="oz-container">
+          <ul className="oz-home-stats-grid">
+            {KPIS.map((kpi) => (
+              <li key={kpi.label} className="oz-home-stat">
+                <div className="oz-home-stat-label">{kpi.label}</div>
+                <div className="oz-home-stat-value">{kpi.value}</div>
+              </li>
             ))}
+          </ul>
+        </div>
+      </section>
+
+      <section
+        ref={mapviz.ref}
+        className={`oz-home-mapviz ${cls(mapviz.revealed)}`}
+      >
+        <div className="oz-container">
+          <div className="oz-home-mapviz-eyebrow">
+            <span className="oz-eyebrow">Couverture</span>
+            <span className="oz-home-mapviz-coord">FR · métropole · 142 zones</span>
+          </div>
+          <button
+            type="button"
+            className="oz-home-mapviz-trigger"
+            onClick={() => navigate('carte')}
+            aria-label="Accéder à la carte interactive complète"
+          >
+            <svg
+              viewBox="0 0 100 100"
+              className="oz-home-mapviz-svg"
+              preserveAspectRatio="xMidYMid meet"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d={FRANCE_PATH} className="oz-home-mapviz-france" />
+              {POIS.map((p, i) => (
+                <g key={i} className="oz-home-mapviz-poi">
+                  <circle cx={p.x} cy={p.y} r="2.4" className="halo" />
+                  <circle cx={p.x} cy={p.y} r="1.1" className="core" />
+                </g>
+              ))}
+            </svg>
+            <div className="oz-home-mapviz-caption">
+              <span>Aperçu non-interactif · 10 villes échantillons</span>
+              <span className="oz-home-mapviz-cta">Accéder à la carte complète ↗</span>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <section
+        ref={editorial.ref}
+        className={`oz-home-editorial ${cls(editorial.revealed)}`}
+      >
+        <div className="oz-container">
+          <div className="oz-home-editorial-grid">
+            <article className="oz-home-editorial-col">
+              <div className="oz-eyebrow">L'observatoire</div>
+              <h3 className="oz-home-editorial-title">Pourquoi Open Zones Act ?</h3>
+              <p className="dropcap">
+                La transformation des entrées de ville et des zones d'activités
+                monofonctionnelles vieillissantes est enjeu majeur pour répondre
+                aux défis écologiques, climatiques et socioéconomiques. Elle
+                représente un gisement de fonciers déjà imperméabilisés et
+                valorisables évalué à 80 000&nbsp;ha.
+              </p>
+              <p>
+                Open Zones Act apporte à tous les acteurs de cette transformation
+                la connaissance, les informations et les inspirations nécessaires
+                à l'engagement et à la réussite de leur projet dans une logique
+                d'essaimage.
+              </p>
+              <p>
+                La plateforme permet de pallier la dispersion, l'incomplétude ou
+                l'inaccessibilité des données de projets (toutes échelles) qui
+                freinent aujourd'hui leur valorisation et la transmission des
+                bonnes pratiques. Il répond au besoin urgent d'un outil partagé
+                pour mutualiser les connaissances, comparer les démarches,
+                stimuler l'implication des acteurs publics et privés, encourager
+                le dialogue et favoriser la diffusion des innovations. Il
+                contribue ainsi à accélérer la transformation des entrées de
+                ville.
+              </p>
+            </article>
+
+            <article className="oz-home-editorial-col oz-home-editorial-col--sub">
+              <div className="oz-eyebrow">Deuxième acte</div>
+              <h3 className="oz-home-editorial-title">Qui sommes-nous ?</h3>
+              <p>
+                Open Zones Act est un projet porté par Deuxième acte, association
+                loi 1901 créée en juillet 2025 dont la mission est d'accélérer la
+                transformation des entrées de ville et des zones commerciales en
+                France, pour en faire des quartiers urbains, écologiques, vivants
+                et audacieux, en réponse aux défis socioéconomiques, écologiques,
+                climatiques et sanitaires.
+              </p>
+              <p className="oz-home-editorial-link-row">
+                Plus d'informations sur{' '}
+                <a
+                  href="https://deuxieme-acte.fr/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  deuxieme-acte.fr&nbsp;↗
+                </a>
+              </p>
+            </article>
           </div>
         </div>
       </section>
