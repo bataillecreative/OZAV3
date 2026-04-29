@@ -54,10 +54,6 @@
   --signal-500:  #B5483A;
   --signal-700:  #5A1F2E;
 
-  /* ── 07 PLUM — footer (toujours sombre) ────────────── */
-  --plum-deep:    #1F1830;  /* footer top */
-  --plum-deeper:  #15101F;  /* footer bottom */
-
   /* ── TOKENS SÉMANTIQUES (dawn · 05·42 pre-dawn) ───── */
   /* Le site est figé sur l'heure dawn : violet-bleu froid de
      l'heure bleue. Plus de hour-cycling. */
@@ -74,18 +70,15 @@
   --border-subtle:    var(--neutral-200);
   --border-default:   var(--neutral-400);
 
-  --action-default:   var(--network-500);
-  --action-hover:     var(--network-700);
-  --focus-ring:       rgba(140, 123, 150, 0.30);
+  --action-default:   var(--water-700);
+  --action-hover:     color-mix(in srgb, var(--water-700) 80%, var(--neutral-900) 20%);
+  --focus-ring:       rgba(60, 94, 104, 0.30);
 
-  /* hour-accent = network-300 (violet brumeux) — la signature dawn */
-  --hour-accent: var(--network-300);
+  /* hour-accent = water-400 (bleu cendré dawn) — accent site basculé sur eau (cf. arbitrage 2026-04-28) */
+  --hour-accent: var(--water-400);
 
-  /* Halo ambient permanent — radials dawn (heure bleue) */
-  --ambient-gradient:
-    radial-gradient(70% 60% at 18% -5%, rgba(186, 175, 194, 0.55) 0%, transparent 60%),
-    radial-gradient(55% 45% at 92% 8%, rgba(138, 175, 182, 0.40) 0%, transparent 60%),
-    radial-gradient(80% 50% at 50% 100%, rgba(186, 175, 194, 0.18) 0%, transparent 65%);
+  /* Halo ambient retiré — fond canvas uniforme, registre classique (cf. arbitrage 2026-04-28) */
+  --ambient-gradient: none;
 
   /* ── ESPACEMENT ──────────────────────────────────── */
   --space-1: 4px;
@@ -98,10 +91,10 @@
   --space-8: 64px;
   --space-9: 80px;
 
-  /* Hauteur effective sous le header sticky (capsule + sa marge top).
+  /* Hauteur effective sous le header sticky.
      Source unique pour les surfaces qui doivent commencer juste sous
      le header — carte plein-écran, légendes sticky, etc. */
-  --header-clearance: 76px;
+  --header-clearance: 56px;
 
   /* ── RAYONS ──────────────────────────────────────── */
   --radius-sm:   3px;
@@ -163,10 +156,12 @@
   --type-num-sm-size:  18px;                      /* popover stat */
 
   /* ── ANIMATION ───────────────────────────────────── */
-  --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-default:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-quart:  cubic-bezier(0.25, 1, 0.5, 1);
   --duration-fast:   0.15s;
   --duration-medium: 0.3s;
   --duration-slow:   0.4s;
+  --duration-reveal: 0.55s;
 }
 
 
@@ -174,13 +169,14 @@
    ║  TYPO — utilitaires canoniques (mirroir du DS)            ║
    ║  Source unique : ces classes ne sont jamais override.     ║
    ╚══════════════════════════════════════════════════════════╝ */
+/* Registre éditorial doux : titres display Anton en mixed-case (cf. arbitrage 2026-04-28).
+   Les utilitaires .meta / .eyebrow / .slate restent uppercase — ce sont des labels mono. */
 h1, .h1 {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: var(--type-h1-size);
   line-height: var(--type-h1-lh);
-  letter-spacing: 0.005em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--text-primary);
 }
 h2, .h2 {
@@ -188,8 +184,7 @@ h2, .h2 {
   font-weight: 400;
   font-size: var(--type-h2-size);
   line-height: var(--type-h2-lh);
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--text-primary);
 }
 h3, .h3 {
@@ -197,8 +192,7 @@ h3, .h3 {
   font-weight: 400;
   font-size: var(--type-h3-size);
   line-height: var(--type-h3-lh);
-  letter-spacing: 0.015em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--text-primary);
 }
 h4, .h4 {
@@ -206,8 +200,7 @@ h4, .h4 {
   font-weight: 400;
   font-size: var(--type-h4-size);
   line-height: var(--type-h4-lh);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--text-primary);
 }
 .display-md {
@@ -215,8 +208,7 @@ h4, .h4 {
   font-weight: 400;
   font-size: var(--type-display-md-size);
   line-height: var(--type-display-md-lh);
-  letter-spacing: 0.005em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--text-primary);
 }
 .display-xxl {
@@ -224,8 +216,7 @@ h4, .h4 {
   font-weight: 400;
   font-size: var(--type-display-xxl-size);
   line-height: var(--type-display-xxl-lh);
-  letter-spacing: 0.005em;
-  text-transform: uppercase;
+  letter-spacing: 0;
 }
 .lede {
   font-family: var(--font-body);
