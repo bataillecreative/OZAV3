@@ -57,8 +57,6 @@ d'urbanisme, pas d'une charte de marque.
 - **Trois polices verrouillées** : Anton (display, all-caps, single weight),
   Supreme (body, 300/400/500/700 + italique), JetBrains Mono (data).
 - **Aucun emoji.** Glyphes Unicode admis : `·` `—` `↗` `●` `°` `−`.
-- **Animation quasi absente** — transitions CSS sobres uniquement. Pas de
-  scroll-jacking, pas de spring, pas de bounce.
 - **Lightmode strict.** Open Zone Acte est en lightmode crème pellicule
   (`--bg-canvas: #E8E2D8`). Toute proposition de darkmode pour le canvas du
   site est refusée. Les exceptions ciblées par fragment (typiquement un footer

@@ -22,8 +22,6 @@ colors:
   signal-400-jane-magenta: "#D63A6E"
   signal-500-travis-red: "#B5483A"
   signal-700-dark-brick: "#5A1F2E"
-  plum-deep-night: "#1F1830"
-  plum-deeper-vault: "#15101F"
   bg-canvas-dawn: "#E8E2D8"
   bg-tone-dawn: "#DCD4D2"
 typography:
@@ -154,13 +152,13 @@ La palette est **désaturée, chaude, terreuse**. Crème pellicule en fond, sodi
 - Désaturation systématique — chaque hex est tinté chaud ou cendré.
 - Trois monopoles chromatiques verrouillés : eau (bleu cendré), commerce + axes (violet grisé), signal Paris/Texas (magenta carte / rouge web).
 - Trois polices verrouillées : Anton (display), Supreme (body), JetBrains Mono (data).
-- Lightmode strict pour le canvas du site ; le footer en plum sombre est une exception ciblée et délimitée.
+- Lightmode strict pour le canvas du site ; le footer s'appuie sur la couleur d'accent eau (`--water-700`) en sombre, et ses variantes claire/foncée — exception ciblée et délimitée.
 - Animation quasi absente — transitions CSS sobres, jamais de bounce, jamais de spring.
 - Aucun emoji ; glyphes Unicode admis (`·` `—` `↗` `●` `°` `−`).
 
 ## 2. Colors
 
-Une palette de 20 tokens organisée en 5 familles thématiques + 1 signal, plus une famille additionnelle (plum) réservée au footer.
+Une palette de 18 tokens organisée en 5 familles thématiques + 1 signal. Le footer s'appuie sur la famille water existante (water-700 background, water-100 alpha texte, water-100 hover).
 
 ### Primary
 - **Cendre Blue** (`#8AAFB6`, `--water-400`) : bleu cendré pour la signalétique eau sur la carte ; aussi accent visuel principal du site (CTA secondaires, dropcaps, états actifs nav). Source du `--hour-accent` figé sur dawn.
@@ -182,9 +180,10 @@ Une palette de 20 tokens organisée en 5 familles thématiques + 1 signal, plus 
 - **Mid Warm Grey** (`#A8A097`, `--neutral-400`) : bordure courante, état désactivé.
 - **Film Ink** (`#2C2820`, `--neutral-900`) : texte primaire, fond emphase, letterbox cinemascope. Encre brun-pellicule, jamais noir vrai.
 
-### Footer-only (exception délimitée)
-- **Night Plum** (`#1F1830`, `--plum-deep`) : footer top.
-- **Vault Plum** (`#15101F`, `--plum-deeper`) : footer bottom.
+### Footer (exception délimitée — water family)
+- **Deep Water** (`#3C5E68`, `--water-700`) : background du footer. Repris de la couleur d'accent du site, en sombre.
+- **Pale Water** (`#DCE6E8`, `--water-100`) : texte du footer (à 55 % d'alpha au repos), couleur des liens au hover (full).
+- *Aucun token plum ne traverse plus le système (retiré 2026-04-29).* Le footer reste l'unique exception délimitée au lightmode strict.
 
 ### Named Rules
 
@@ -194,7 +193,7 @@ Une palette de 20 tokens organisée en 5 familles thématiques + 1 signal, plus 
 
 **The Saturation-Off Rule.** Aucune couleur saturée pure ne traverse le système — y compris les neutres, qui sont tintés warm (chroma 0.005–0.01 vers la marque). Le noir vrai (`#000`) et le blanc papier (`#fff`) sont prohibés.
 
-**The Lightmode Strict Rule.** Le canvas du site reste light en permanence (`--bg-canvas: #E8E2D8`, dawn cendré). Le footer en plum sombre est l'unique exception délimitée. Aucun darkmode global, aucun gradient temporel sur les pages utilitaires.
+**The Lightmode Strict Rule.** Le canvas du site reste light en permanence (`--bg-canvas: #E8E2D8`, dawn cendré). Le footer en water-700 (couleur d'accent en sombre) est l'unique exception délimitée. Aucun darkmode global, aucun gradient temporel sur les pages utilitaires.
 
 ## 3. Typography
 
@@ -279,7 +278,7 @@ Système **quasi-flat avec ombres rares**. Trois niveaux d'ombre discrets en noi
 - **Mobile (≤720px)** : `.oz-nav` masquée, header en 2 colonnes (wordmark + actions).
 
 ### Footer (`.oz-footer`)
-- Background `--plum-deep` (`#1F1830`), text `rgba(240, 235, 223, 0.45)`. **Seule exception délimitée au lightmode strict.** Une seule ligne de méta (mono 10px tracking 0.14em uppercase, centrée), liens avec hover vers `--neutral-100`.
+- Background `--water-700` (`#3C5E68`, couleur d'accent eau en sombre), text `rgba(220, 230, 232, 0.55)` (water-100 à 55 % alpha). **Seule exception délimitée au lightmode strict.** Une seule ligne de méta (mono 10px tracking 0.14em uppercase, centrée), liens avec hover vers `--water-100`.
 
 ### Letterbox cinemascope (`.oz-letterbox`)
 - Composant signature OZA. Bandeau `36px` background `--neutral-900`, mono small-caps tracking 0.18em, color `rgba(240, 235, 223, 0.65)`. Lignes de fuite intérieures (inset shadows 1px).
@@ -311,7 +310,7 @@ Système **quasi-flat avec ombres rares**. Trois niveaux d'ombre discrets en noi
 - **Do** utiliser `text-wrap: balance` sur les titres et `text-wrap: pretty` sur les paragraphes (déjà en place).
 
 ### Don't:
-- **Don't** introduire un darkmode global du site. Le canvas reste `#E8E2D8` en permanence (Lightmode Strict Rule). Le footer plum est l'unique exception délimitée.
+- **Don't** introduire un darkmode global du site. Le canvas reste `#E8E2D8` en permanence (Lightmode Strict Rule). Le footer en water-700 (couleur d'accent en sombre) est l'unique exception délimitée.
 - **Don't** utiliser de gradient temporel (`hour-dawn → hour-return`) sur les pages utilitaires. La narration en 6 heures est réservée aux supports éditoriaux non-utilitaires (poster, A3, about).
 - **Don't** introduire un bleu non-cendré. Le bleu vif (`#78C9FF`, `#5BBDFF`, etc., héritage Deuxième Acte) est explicitement refusé.
 - **Don't** utiliser `--signal-400` magenta sur le web hors carte. Don't utiliser `--signal-500` rouge sur la carte.

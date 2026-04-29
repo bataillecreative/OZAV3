@@ -54,9 +54,6 @@ export function Carte({ openProject }: CarteProps) {
     <main className="oz-carte-shell">
       <h1 className="sr-only">Carte interactive · Open Zones Act</h1>
       <aside className="oz-carte-sidebar" aria-label="Filtres et recherche">
-        <div className="oz-eyebrow">Carte interactive</div>
-        <h2>{filtered.length} fiches sur le territoire</h2>
-
         {filtered.length === 0 && (
           <div className="oz-empty-notice" role="status">
             Aucune fiche ne correspond aux filtres actifs.
@@ -200,19 +197,6 @@ export function Carte({ openProject }: CarteProps) {
         <div className="oz-carte-slate">
           <span className="h">05·42 — pre-dawn</span>
           <span>France métropolitaine · échelle 1/4 000 000</span>
-        </div>
-
-        <div className="oz-carte-toolbar" role="toolbar" aria-label="Outils de carte">
-          <button type="button" className="oz-carte-tool" aria-label="Zoom avant">+</button>
-          <button type="button" className="oz-carte-tool" aria-label="Zoom arrière">−</button>
-          <button
-            type="button"
-            className="oz-carte-tool"
-            aria-label="Recentrer la carte"
-            style={{ fontSize: 11, fontFamily: 'var(--font-mono)' }}
-          >
-            ⌂
-          </button>
         </div>
 
         <div className="oz-carte-attrib">© OSM · IGN · OZA 2026</div>

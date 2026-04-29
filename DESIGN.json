@@ -12,8 +12,7 @@
       "warm-400-sodium-gold": { "role": "secondary", "displayName": "Sodium Gold", "canonical": "#D4A975", "tonalRamp": ["#2A1E0D", "#4F3A18", "#7A5224", "#A77638", "#C49258", "#D4A975", "#E8C282", "#F2DCAE"] },
       "signal-400-jane-magenta": { "role": "secondary", "displayName": "Jane Magenta (carte uniquement)", "canonical": "#D63A6E", "tonalRamp": ["#2C0A18", "#5A1F2E", "#83243F", "#A82B53", "#C13366", "#D63A6E", "#E37192", "#F5DDD7"] },
       "signal-500-travis-red": { "role": "secondary", "displayName": "Travis Red (web uniquement)", "canonical": "#B5483A", "tonalRamp": ["#2C0E08", "#5A1F2E", "#7A2E22", "#993427", "#B5483A", "#C76957", "#D88E80", "#F5DDD7"] },
-      "green-500-grey-sage": { "role": "tertiary", "displayName": "Grey Sage", "canonical": "#8FA597", "tonalRamp": ["#1E2723", "#3A4640", "#5F7066", "#75887C", "#8FA597", "#A8BCB0", "#BBC5BB", "#D6DDD7"] },
-      "plum-deep-night": { "role": "neutral", "displayName": "Night Plum (footer-only)", "canonical": "#1F1830", "tonalRamp": ["#0A0816", "#15101F", "#1F1830", "#2C2342", "#3D3056", "#564371", "#71588E", "#9C8AB6"] }
+      "green-500-grey-sage": { "role": "tertiary", "displayName": "Grey Sage", "canonical": "#8FA597", "tonalRamp": ["#1E2723", "#3A4640", "#5F7066", "#75887C", "#8FA597", "#A8BCB0", "#BBC5BB", "#D6DDD7"] }
     },
     "typographyMeta": {
       "display": { "displayName": "Display", "purpose": "H1 éditorial — galerie, fiches, hero. Anton mixed-case." },
@@ -119,7 +118,7 @@
       "Désaturation systématique — chaque hex est tinté chaud ou cendré.",
       "Trois monopoles chromatiques verrouillés : eau, commerce + axes, signal Paris/Texas.",
       "Trois polices verrouillées : Anton (display), Supreme (body), JetBrains Mono (data).",
-      "Lightmode strict pour le canvas du site ; le footer en plum sombre est une exception ciblée.",
+      "Lightmode strict pour le canvas du site ; le footer en water-700 (couleur d'accent en sombre) est une exception ciblée.",
       "Animation quasi absente — transitions CSS sobres, jamais de bounce, jamais de spring.",
       "Aucun emoji ; glyphes Unicode admis (· — ↗ ● ° −)."
     ],
@@ -127,7 +126,7 @@
       { "name": "The Three Monopoles Rule", "body": "Le bleu cendré est l'unique bleu — monopole strict de l'eau. Le violet grisé est exclusif au commerce et à ses axes routiers. Le signal est bicéphale : magenta sur la carte, rouge sur le web. Un seul signal par vue.", "section": "colors" },
       { "name": "The Bicéphale Signal Rule", "body": "Le magenta #D63A6E n'apparaît jamais sur le web hors carte. Le rouge #B5483A n'apparaît jamais sur la carte. Jamais les deux dans la même surface visible.", "section": "colors" },
       { "name": "The Saturation-Off Rule", "body": "Aucune couleur saturée pure ne traverse le système. Le noir vrai (#000) et le blanc papier (#fff) sont prohibés.", "section": "colors" },
-      { "name": "The Lightmode Strict Rule", "body": "Le canvas du site reste light en permanence (#E8E2D8). Le footer en plum sombre est l'unique exception délimitée.", "section": "colors" },
+      { "name": "The Lightmode Strict Rule", "body": "Le canvas du site reste light en permanence (#E8E2D8). Le footer en water-700 (#3C5E68, couleur d'accent en sombre) est l'unique exception délimitée.", "section": "colors" },
       { "name": "The Three Fonts Rule", "body": "Le système n'admet que trois polices : Anton, Supreme, JetBrains Mono. Aucune 4ème police.", "section": "typography" },
       { "name": "The Display Mixed-Case Rule", "body": "Anton est utilisé en mixed-case sur les titres display. Les utilitaires .meta / .eyebrow / .slate (mono) restent uppercase.", "section": "typography" },
       { "name": "The Letter-Spacing Rule", "body": "Anton à 0. Supreme à -0.005em à neutre selon la taille. JetBrains Mono à 0.18em sur labels/eyebrow, 0.04em sur coord.", "section": "typography" },

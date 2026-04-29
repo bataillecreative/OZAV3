@@ -7,3 +7,5 @@ dist/
 .env.local
 .claude/settings.local.json
 *.tsbuildinfo
+
+.vercel
