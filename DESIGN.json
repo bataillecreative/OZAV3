@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-04-28T00:00:00Z",
+  "title": "Design System: Open Zone Acte",
+  "extensions": {
+    "colorMeta": {
+      "neutral-100-cream-pellicule": { "role": "neutral", "displayName": "Cream Pellicule", "canonical": "#F0EBDF", "tonalRamp": ["#2C2820", "#564E3F", "#7E7460", "#A8A097", "#C4BCAC", "#D6CFC0", "#E5DCCC", "#F0EBDF"] },
+      "neutral-900-film-ink": { "role": "neutral", "displayName": "Film Ink", "canonical": "#2C2820", "tonalRamp": ["#15110B", "#1F1B12", "#2C2820", "#48402F", "#675D45", "#8C816A", "#B6AC97", "#DAD2BD"] },
+      "water-400-cendre-blue": { "role": "primary", "displayName": "Cendre Blue", "canonical": "#8AAFB6", "tonalRamp": ["#1B2C30", "#2A4148", "#3C5E68", "#557D87", "#6E96A0", "#8AAFB6", "#B0C8CC", "#DCE6E8"] },
+      "water-700-deep-water": { "role": "primary", "displayName": "Deep Water", "canonical": "#3C5E68", "tonalRamp": ["#0C171A", "#1B2C30", "#2A4148", "#3C5E68", "#557D87", "#6E96A0", "#8AAFB6", "#B0C8CC"] },
+      "network-500-grey-plum": { "role": "tertiary", "displayName": "Grey Plum (commerce monopole)", "canonical": "#8C7B96", "tonalRamp": ["#1F1A24", "#332A3A", "#4E4360", "#6A5C7C", "#8C7B96", "#A89BAE", "#BAAFC2", "#D2CADD"] },
+      "warm-400-sodium-gold": { "role": "secondary", "displayName": "Sodium Gold", "canonical": "#D4A975", "tonalRamp": ["#2A1E0D", "#4F3A18", "#7A5224", "#A77638", "#C49258", "#D4A975", "#E8C282", "#F2DCAE"] },
+      "signal-400-jane-magenta": { "role": "secondary", "displayName": "Jane Magenta (carte uniquement)", "canonical": "#D63A6E", "tonalRamp": ["#2C0A18", "#5A1F2E", "#83243F", "#A82B53", "#C13366", "#D63A6E", "#E37192", "#F5DDD7"] },
+      "signal-500-travis-red": { "role": "secondary", "displayName": "Travis Red (web uniquement)", "canonical": "#B5483A", "tonalRamp": ["#2C0E08", "#5A1F2E", "#7A2E22", "#993427", "#B5483A", "#C76957", "#D88E80", "#F5DDD7"] },
+      "green-500-grey-sage": { "role": "tertiary", "displayName": "Grey Sage", "canonical": "#8FA597", "tonalRamp": ["#1E2723", "#3A4640", "#5F7066", "#75887C", "#8FA597", "#A8BCB0", "#BBC5BB", "#D6DDD7"] },
+      "plum-deep-night": { "role": "neutral", "displayName": "Night Plum (footer-only)", "canonical": "#1F1830", "tonalRamp": ["#0A0816", "#15101F", "#1F1830", "#2C2342", "#3D3056", "#564371", "#71588E", "#9C8AB6"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "H1 éditorial — galerie, fiches, hero. Anton mixed-case." },
+      "headline": { "displayName": "Headline", "purpose": "H2 sections, grandes valeurs métier (surface ha, etc.)." },
+      "title": { "displayName": "Title", "purpose": "H3 sous-sections, popovers, toponymes de fiche." },
+      "body": { "displayName": "Body", "purpose": "Prose courante. Cap 65–75ch." },
+      "lede": { "displayName": "Lede", "purpose": "Entrées d'article, hero subtitle, leads de fiche." },
+      "quote": { "displayName": "Quote", "purpose": "Pull-quotes éditoriales — règles top/bottom uniquement, jamais side-stripe." },
+      "label": { "displayName": "Label (mono)", "purpose": "Slates, cartouches, micro-mono." },
+      "eyebrow": { "displayName": "Eyebrow (mono)", "purpose": "Surtitres de section, en water-700 ou signal-500." },
+      "coord": { "displayName": "Coord (mono)", "purpose": "Coordonnées géo, mesures, métadonnées numériques." }
+    },
+    "shadows": [
+      { "name": "shadow-sm", "value": "0 1px 2px rgba(44, 40, 32, 0.06)", "purpose": "Cartes simples, contrôles MapLibre. Toujours noir chaud." },
+      { "name": "shadow-md", "value": "0 4px 12px -4px rgba(44, 40, 32, 0.10), 0 2px 4px -2px rgba(44, 40, 32, 0.06)", "purpose": "Toolbars, tooltips." },
+      { "name": "shadow-lg", "value": "0 16px 32px -12px rgba(44, 40, 32, 0.16), 0 4px 8px -2px rgba(44, 40, 32, 0.08)", "purpose": "Popovers de fiche carte, toasts." },
+      { "name": "hero-cta-glow", "value": "0 10px 28px -8px rgba(60, 94, 104, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.20)", "purpose": "Hover du CTA hero — water-tinted, se lève au survol." },
+      { "name": "focus-ring", "value": "0 0 0 3px rgba(60, 94, 104, 0.30)", "purpose": "Focus visible WCAG 2.4.7 sur boutons et inputs (water-700 alpha)." }
+    ],
+    "motion": [
+      { "name": "ease-default", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Easing canonique pour toute transition CSS." },
+      { "name": "duration-fast", "value": "0.15s", "purpose": "Hover, état de focus, micro-interactions." },
+      { "name": "duration-medium", "value": "0.3s", "purpose": "Cards hover, toast entrance, transitions de panneaux." },
+      { "name": "duration-slow", "value": "0.4s", "purpose": "Transitions de page (framer-motion)." },
+      { "name": "reduced-motion-cap", "value": "0.01ms !important", "purpose": "Respect strict de prefers-reduced-motion (app.css 1274–1283)." }
+    ],
+    "breakpoints": [
+      { "name": "mobile-narrow", "value": "720px", "purpose": "Galerie en 1 colonne, nav masquée, header en 2 colonnes." },
+      { "name": "tablet", "value": "1100px", "purpose": "Galerie en 2 colonnes, carte sidebar+canvas en 1 colonne." },
+      { "name": "desktop", "value": "1240px", "purpose": "Container max-width." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Bouton d'action courante — water-700 sur fond pellicule, label mono uppercase tracking 0.14em.",
+      "html": "<button class=\"ds-btn-primary\">CONSULTER LA CARTE</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; font-family: Supreme, system-ui, sans-serif; font-weight: 500; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; background: #3C5E68; color: #F0EBDF; border: 1px solid transparent; border-radius: 6px; transition: background 0.15s cubic-bezier(0.4,0,0.2,1); cursor: pointer; } .ds-btn-primary:hover { background: #2C2820; } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(60, 94, 104, 0.30); }"
+    },
+    {
+      "name": "Hero CTA",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "CTA hero pleine page — capsule pill, padding ample, hover translateY + glow water-tinted.",
+      "html": "<button class=\"ds-btn-hero\">EXPLORER LES ZAC</button>",
+      "css": ".ds-btn-hero { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; min-width: 240px; font-family: Supreme, system-ui, sans-serif; font-weight: 500; font-size: 12.5px; letter-spacing: 0.16em; text-transform: uppercase; background: #3C5E68; color: #F0EBDF; border: 1px solid transparent; border-radius: 999px; transition: background 0.15s, transform 0.15s, box-shadow 0.15s; box-shadow: inset 0 1px 0 rgba(255,255,255,0.20); cursor: pointer; } .ds-btn-hero:hover { background: #2C2820; transform: translateY(-1px); box-shadow: 0 10px 28px -8px rgba(60, 94, 104, 0.45), inset 0 1px 0 rgba(255,255,255,0.20); }"
+    },
+    {
+      "name": "Status Pill — Chantier",
+      "kind": "chip",
+      "refersTo": "pill-status",
+      "description": "Pill d'état projet — chaque état tinté de la famille de son token. Variant chantier en signal-family (terracotta).",
+      "html": "<span class=\"ds-pill ds-pill-chantier\"><span class=\"ds-pill-dot\"></span>Chantier</span>",
+      "css": ".ds-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 999px; border: 1px solid; white-space: nowrap; } .ds-pill-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; } .ds-pill-chantier { color: #5A1F2E; border-color: #B5483A; background: rgba(213, 138, 118, 0.20); } .ds-pill-chantier .ds-pill-dot { background: #B5483A; }"
+    },
+    {
+      "name": "Eyebrow Label",
+      "kind": "custom",
+      "refersTo": "typography.eyebrow",
+      "description": "Surtitre de section — mono uppercase tracking 0.22em en couleur water-700, surplomb le H2 Anton.",
+      "html": "<span class=\"ds-eyebrow\">II · le territoire dessiné</span>",
+      "css": ".ds-eyebrow { display: inline-block; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: #3C5E68; }"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Champ de recherche filtres — radius-md, focus en water-700 + ring 3px water alpha.",
+      "html": "<input class=\"ds-input\" type=\"search\" placeholder=\"Rechercher une zone…\" />",
+      "css": ".ds-input { width: 100%; padding: 10px 12px; background: #E8E2D8; border: 1px solid #A8A097; border-radius: 6px; font-family: Supreme, system-ui, sans-serif; font-size: 13px; color: #2C2820; transition: border-color 0.15s, box-shadow 0.15s; } .ds-input:focus { outline: none; border-color: #3C5E68; box-shadow: 0 0 0 3px rgba(60, 94, 104, 0.30); } .ds-input::placeholder { color: #A8A097; }"
+    },
+    {
+      "name": "Galerie Card",
+      "kind": "card",
+      "refersTo": "card-fiche",
+      "description": "Carte de galerie ZAC — thumbnail SVG aspect 4:3, titre Anton, méta mono, pattern stretched-link en <button> overlay.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-thumb\"><span class=\"ds-corner\">PLAN-DE-CAMPAGNE</span></div><div class=\"ds-card-top\"><span>13 · BdR</span><span>340 ha</span></div><h3 class=\"ds-card-title\">Plan-de-Campagne</h3><p class=\"ds-card-meta\">Zone d'activité commerciale d'envergure régionale, en cours d'études de mutation.</p></article>",
+      "css": ".ds-card { display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); position: relative; } .ds-card:hover { transform: translateY(-3px); } .ds-thumb { aspect-ratio: 4/3; background: #DCD4D2; border-radius: 3px; border: 1px solid #D6CFC0; overflow: hidden; position: relative; } .ds-corner { position: absolute; top: 8px; left: 8px; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: #6F6757; background: rgba(240, 235, 223, 0.85); padding: 3px 7px; border-radius: 2px; } .ds-card-top { display: flex; justify-content: space-between; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #6F6757; } .ds-card-title { font-family: Anton, sans-serif; font-size: 22px; font-weight: 400; line-height: 1.05; color: #2C2820; margin: 0; } .ds-card-meta { font-family: Supreme, system-ui, sans-serif; font-size: 13px; color: #5A5147; line-height: 1.5; margin: 0; }"
+    },
+    {
+      "name": "Letterbox Cinemascope",
+      "kind": "custom",
+      "refersTo": "letterbox",
+      "description": "Bandeau cinemascope signature OZA — neutral-900, mono small-caps, 36px de haut. Encadre une page éditoriale.",
+      "html": "<div class=\"ds-letterbox\"><span>OPEN ZONE ACTE</span><span>13 · BOUCHES-DU-RHÔNE</span></div>",
+      "css": ".ds-letterbox { display: flex; justify-content: space-between; align-items: center; height: 36px; padding: 0 32px; background: #2C2820; color: rgba(240, 235, 223, 0.65); font-family: 'JetBrains Mono', monospace; font-size: 9px; font-variant: small-caps; letter-spacing: 0.18em; text-transform: uppercase; position: relative; overflow: hidden; box-shadow: inset 0 1px 0 rgba(240, 235, 223, 0.04), inset 0 -1px 0 rgba(0, 0, 0, 0.40); }"
+    },
+    {
+      "name": "Status Progression",
+      "kind": "custom",
+      "refersTo": "fiche-progress",
+      "description": "Barre d'étapes amont→réalisé sur la fiche ZAC — flex equal, border 1px, radius-sm. Step current en water-700 + neutral-100.",
+      "html": "<div class=\"ds-progress\"><div class=\"ds-step ds-step-done\">Amont<span class=\"ds-step-yr\">2018</span></div><div class=\"ds-step ds-step-done\">Études<span class=\"ds-step-yr\">2021</span></div><div class=\"ds-step ds-step-current\">Chantier<span class=\"ds-step-yr\">2025</span></div><div class=\"ds-step\">Réalisé<span class=\"ds-step-yr\">—</span></div></div>",
+      "css": ".ds-progress { display: flex; border: 1px solid #A8A097; border-radius: 3px; overflow: hidden; } .ds-step { flex: 1; padding: 12px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #6F6757; border-right: 1px solid #D6CFC0; background: #E8E2D8; display: flex; flex-direction: column; gap: 4px; } .ds-step:last-child { border-right: none; } .ds-step-done { background: #F0EBDF; color: #5A5147; } .ds-step-current { background: #3C5E68; color: #F0EBDF; } .ds-step-yr { font-size: 9px; opacity: 0.7; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "L'Atlas Cendré",
+    "overview": "Open Zone Acte est un atlas urbaniste-éditorial des zones commerciales périphériques françaises — ZAC, retail parks, hypermarchés, autoroutes desservantes. Le design SERT l'usage métier (collectivités, urbanistes, chercheurs, journalistes spécialisés) plus qu'il ne se met en scène. La palette est désaturée, chaude, terreuse. Crème pellicule en fond, sodium d'enseigne sur le bâti, plum d'heure bleue ponctuel. Aucune couleur saturée pure ne traverse le système — le seul accent saturé est le duo signal réservé aux POI cartographiques (magenta) et aux focus web (rouge terracotta). Le système rejette explicitement les esthétiques SaaS (gradients violets, hero émotionnel), les dashboards templates, les sites de retail park et la civic-tech aride.",
+    "keyCharacteristics": [
+      "Désaturation systématique — chaque hex est tinté chaud ou cendré.",
+      "Trois monopoles chromatiques verrouillés : eau, commerce + axes, signal Paris/Texas.",
+      "Trois polices verrouillées : Anton (display), Supreme (body), JetBrains Mono (data).",
+      "Lightmode strict pour le canvas du site ; le footer en plum sombre est une exception ciblée.",
+      "Animation quasi absente — transitions CSS sobres, jamais de bounce, jamais de spring.",
+      "Aucun emoji ; glyphes Unicode admis (· — ↗ ● ° −)."
+    ],
+    "rules": [
+      { "name": "The Three Monopoles Rule", "body": "Le bleu cendré est l'unique bleu — monopole strict de l'eau. Le violet grisé est exclusif au commerce et à ses axes routiers. Le signal est bicéphale : magenta sur la carte, rouge sur le web. Un seul signal par vue.", "section": "colors" },
+      { "name": "The Bicéphale Signal Rule", "body": "Le magenta #D63A6E n'apparaît jamais sur le web hors carte. Le rouge #B5483A n'apparaît jamais sur la carte. Jamais les deux dans la même surface visible.", "section": "colors" },
+      { "name": "The Saturation-Off Rule", "body": "Aucune couleur saturée pure ne traverse le système. Le noir vrai (#000) et le blanc papier (#fff) sont prohibés.", "section": "colors" },
+      { "name": "The Lightmode Strict Rule", "body": "Le canvas du site reste light en permanence (#E8E2D8). Le footer en plum sombre est l'unique exception délimitée.", "section": "colors" },
+      { "name": "The Three Fonts Rule", "body": "Le système n'admet que trois polices : Anton, Supreme, JetBrains Mono. Aucune 4ème police.", "section": "typography" },
+      { "name": "The Display Mixed-Case Rule", "body": "Anton est utilisé en mixed-case sur les titres display. Les utilitaires .meta / .eyebrow / .slate (mono) restent uppercase.", "section": "typography" },
+      { "name": "The Letter-Spacing Rule", "body": "Anton à 0. Supreme à -0.005em à neutre selon la taille. JetBrains Mono à 0.18em sur labels/eyebrow, 0.04em sur coord.", "section": "typography" },
+      { "name": "The Warm-Shadow Rule", "body": "Toutes les ombres utilisent rgba(44, 40, 32, *). Une ombre en gris-bleu froid est interdite.", "section": "elevation" },
+      { "name": "The Flat-At-Rest Rule", "body": "Les surfaces sont plates au repos. Une ombre apparaît en réponse à un état (hover, popover, toast).", "section": "elevation" }
+    ],
+    "dos": [
+      "Do utiliser --action-default (#3C5E68, water-700) comme couleur de bouton primaire. Le rouge Travis n'est pas un CTA — c'est un signal.",
+      "Do réserver --signal-400 (magenta) aux POI cartographiques uniquement, et --signal-500 (rouge) aux focus / alertes web uniquement.",
+      "Do tinter les neutres vers warm. --neutral-900: #2C2820 au lieu de #000.",
+      "Do utiliser des ombres en rgba(44, 40, 32, *) — toujours en noir chaud.",
+      "Do garder les pulls-quotes éditoriaux encadrés par règles top/bottom uniquement, jamais avec side-stripe.",
+      "Do respecter prefers-reduced-motion sur toute animation.",
+      "Do capper la longueur de ligne body à 65–75ch.",
+      "Do utiliser text-wrap: balance sur les titres et text-wrap: pretty sur les paragraphes."
+    ],
+    "donts": [
+      "Don't introduire un darkmode global du site. Le canvas reste #E8E2D8 en permanence.",
+      "Don't utiliser de gradient temporel (hour-dawn → hour-return) sur les pages utilitaires.",
+      "Don't introduire un bleu non-cendré. Le bleu vif (#78C9FF, héritage Deuxième Acte) est explicitement refusé.",
+      "Don't utiliser --signal-400 magenta sur le web hors carte.",
+      "Don't utiliser --signal-500 rouge sur la carte.",
+      "Don't mélanger les deux signaux dans la même vue.",
+      "Don't utiliser border-left ou border-right > 1px comme accent coloré.",
+      "Don't utiliser background-clip: text sur du gradient.",
+      "Don't empiler des cards identiques en grille (anti-référence dashboard template).",
+      "Don't introduire un emoji.",
+      "Don't introduire une 4ème police.",
+      "Don't utiliser un shadow gris-bleu froid.",
+      "Don't mettre le rouge Travis sur les boutons d'action courante.",
+      "Don't utiliser des éclairages SaaS (gradients violets, hero émotionnel, CTAs « Get started for free »).",
+      "Don't copier l'esthétique des sites de retail park (jaune criard, photos shopping, bandeaux promo).",
+      "Don't réintroduire des marges latérales calculées en JS."
+    ]
+  }
+}
