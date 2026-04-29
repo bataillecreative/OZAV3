@@ -41,6 +41,12 @@ function App() {
     );
   };
 
+  const onLogin = () => {
+    setToast(
+      "Espace contributeur — bientôt. En attendant : contribuer@open-zones-act.fr",
+    );
+  };
+
   // Page transition : framer-motion respecte la préférence utilisateur.
   // Sous reduced-motion, on collapse à un fade instantané.
   const pageTransition = reducedMotion
@@ -49,7 +55,12 @@ function App() {
 
   return (
     <div className="oz-shell">
-      <Header route={route} navigate={navigate} onContribute={onContribute} />
+      <Header
+        route={route}
+        navigate={navigate}
+        onContribute={onContribute}
+        onLogin={onLogin}
+      />
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -61,7 +72,7 @@ function App() {
           transition={pageTransition}
         >
           {route === 'home' && (
-            <Home navigate={navigate} onContribute={onContribute} openProject={openProject} />
+            <Home navigate={navigate} onContribute={onContribute} />
           )}
           {route === 'carte'   && <Carte openProject={openProject} />}
           {route === 'galerie' && <Galerie openProject={openProject} />}
