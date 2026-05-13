@@ -349,16 +349,72 @@ body::before {
   white-space: nowrap;
 }
 .oz-pill .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
-.oz-pill[data-state="amont"]    { color: #4E4360; border-color: #BAAFC2; background: rgba(186,175,194,0.18); }
-.oz-pill[data-state="amont"] .dot    { background: #BAAFC2; }
-.oz-pill[data-state="etudes"]   { color: #7A5224; border-color: #E8C282; background: rgba(232,194,130,0.18); }
-.oz-pill[data-state="etudes"] .dot   { background: #D4A975; }
-.oz-pill[data-state="chantier"] { color: #5A1F2E; border-color: #B5483A; background: rgba(213,138,118,0.20); }
-.oz-pill[data-state="chantier"] .dot { background: #B5483A; }
-.oz-pill[data-state="realise"]  { color: #5F7066; border-color: #8FA597; background: rgba(143,165,151,0.22); }
-.oz-pill[data-state="realise"] .dot  { background: #5F7066; }
+.oz-pill[data-state="amont"]    { color: var(--network-700); border-color: var(--network-300); background: color-mix(in srgb, var(--network-300) 18%, transparent); }
+.oz-pill[data-state="amont"] .dot    { background: var(--network-300); }
+.oz-pill[data-state="etudes"]   { color: var(--warm-700); border-color: var(--warm-300); background: color-mix(in srgb, var(--warm-300) 18%, transparent); }
+.oz-pill[data-state="etudes"] .dot   { background: var(--warm-400); }
+.oz-pill[data-state="chantier"] { color: var(--signal-700); border-color: var(--signal-500); background: color-mix(in srgb, var(--signal-500) 20%, transparent); }
+.oz-pill[data-state="chantier"] .dot { background: var(--signal-500); }
+.oz-pill[data-state="realise"]  { color: var(--green-700); border-color: var(--green-500); background: color-mix(in srgb, var(--green-500) 22%, transparent); }
+.oz-pill[data-state="realise"] .dot  { background: var(--green-700); }
 .oz-pill[data-state="arrete"]   { color: var(--text-tertiary); border-color: var(--border-default); background: var(--bg-surface); }
 .oz-pill[data-state="arrete"] .dot   { background: var(--text-tertiary); }
+
+/* ── ÉTAT · couleur de famille par data-etat ──────────── */
+/* Source unique : un état → un palier de famille. Les composants qui
+   doivent colorer un dot ou un marker selon l'état d'un projet posent
+   un attribut [data-etat] et ces règles font le reste. Les hex
+   correspondants sont définis dans tokens.css. */
+.oz-etat-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.oz-etat-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 1px solid;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.oz-etat-dot[data-etat="amont"]    { background: var(--network-300); border-color: var(--network-700); }
+.oz-etat-dot[data-etat="etudes"]   { background: var(--warm-300);    border-color: var(--warm-700); }
+.oz-etat-dot[data-etat="chantier"] { background: var(--warm-400);    border-color: var(--warm-700); }
+.oz-etat-dot[data-etat="realise"]  { background: var(--green-500);   border-color: var(--green-700); }
+.oz-etat-dot[data-etat="arrete"]   { background: var(--neutral-400); border-color: var(--network-700); }
+
+/* POI cartographique · color piloté par data-etat sur l'élément racine
+   (.oz-poi-gl). L'état sélectionné prend le signal magenta cartographique. */
+.oz-poi-gl[data-etat="amont"]    .core { background: var(--network-300); border-color: var(--network-700); }
+.oz-poi-gl[data-etat="etudes"]   .core { background: var(--warm-300);    border-color: var(--warm-700); }
+.oz-poi-gl[data-etat="chantier"] .core { background: var(--warm-400);    border-color: var(--warm-700); }
+.oz-poi-gl[data-etat="realise"]  .core { background: var(--green-500);   border-color: var(--green-700); }
+.oz-poi-gl[data-etat="arrete"]   .core { background: var(--neutral-400); border-color: var(--network-700); }
+.oz-poi-gl.selected .core { background: var(--signal-400); border-color: var(--network-700); }
+.oz-poi-gl.selected .ring { opacity: 1; }
+
+/* ── SVG · classes utilitaires fill/stroke sur tokens ─── */
+/* Évite la duplication d'hex dans ProjectThumb, FicheMapMini, légende.
+   Chaque classe nomme un rôle métier (commerce, perm, water, axe…),
+   pas une couleur. Les hex correspondants vivent dans tokens.css. */
+.svg-fill-cream      { fill: var(--neutral-100); }
+.svg-fill-warm-grey  { fill: var(--neutral-400); }
+.svg-fill-perm       { fill: var(--green-300); }
+.svg-fill-water      { fill: var(--water-400); }
+.svg-text-ink        { fill: var(--neutral-900); }
+.svg-text-network    { fill: var(--network-700); }
+
+.svg-commerce        { fill: var(--network-500); stroke: var(--network-700); }
+.svg-stroke-commerce { stroke: var(--network-700); fill: none; }
+.svg-project         { fill: var(--warm-300); stroke: var(--warm-700); }
+.svg-poi-minor       { fill: var(--warm-400); stroke: var(--warm-700); }
+.svg-poi-major-core  { fill: var(--signal-400); stroke: var(--network-700); }
+
+.svg-axe-network-base    { fill: none; stroke: var(--network-700); }
+.svg-axe-network-top     { fill: none; stroke: var(--network-500); }
+.svg-axe-network-top-pale{ fill: none; stroke: var(--network-300); }
+.svg-axe-warm-base       { fill: none; stroke: var(--warm-700); }
+.svg-axe-warm-top        { fill: none; stroke: var(--warm-300); }
 
 /* ── EYEBROW / SECTION RULES ───────────────────────── */
 .oz-eyebrow {
@@ -486,7 +542,7 @@ body::before {
 }
 .oz-home-stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-5);
 }
 .oz-home-stat {
@@ -514,21 +570,33 @@ body::before {
   line-height: 1;
   color: var(--text-primary);
 }
-.oz-home-stat:last-child .oz-home-stat-value {
+
+/* Méta sous le grid · timestamp distinct des KPIs (était autrefois faussement
+   le 4ème KPI). Mono right-aligned, registre footnote éditorial. */
+.oz-home-stats-meta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
   font-family: var(--font-mono);
-  font-size: var(--type-coord-size);
-  letter-spacing: var(--type-coord-tracking);
+  font-size: var(--type-micro-size);
+  letter-spacing: var(--type-meta-tracking);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+.oz-home-stats-meta time {
   color: var(--text-secondary);
-  padding-top: 6px;
+  letter-spacing: var(--type-coord-tracking);
 }
-@media (max-width: 980px) {
-  .oz-home-stats-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-5) var(--space-4); }
-  .oz-home-stat:nth-child(3) { border-left: none; padding-left: 0; }
-}
-@media (max-width: 480px) {
-  .oz-home-stats-grid { grid-template-columns: 1fr; }
+
+@media (max-width: 720px) {
+  .oz-home-stats-grid { grid-template-columns: 1fr; gap: var(--space-4); }
   .oz-home-stat { border-left: none; padding-left: 0; padding-top: var(--space-3); border-top: 1px solid var(--border-subtle); }
   .oz-home-stat:first-child { border-top: none; padding-top: 0; }
+  .oz-home-stats-meta { justify-content: flex-start; }
 }
 
 /* ── HOME : MAPVIZ BAND (silhouette FR + POIs, click → /carte) ─ */
@@ -907,7 +975,9 @@ body::before {
 .oz-poi.dimmed { opacity: 0.18; }
 
 .oz-fiche-popover {
-  position: absolute;
+  /* fixed : les coords top/left sont en pixels viewport (getBoundingClientRect)
+     calculées dans Carte.tsx. Ferme automatiquement au pan/zoom de la carte. */
+  position: fixed;
   width: 320px;
   background: var(--bg-canvas);
   border: 1px solid var(--border-default);
@@ -1312,6 +1382,18 @@ body::before {
   color: var(--text-secondary);
 }
 .oz-legend-fill { height: 14px; border: 1px solid; }
+.oz-legend-fill[data-surface="commerce"] { background: var(--network-500); border-color: var(--network-700); }
+.oz-legend-fill[data-surface="project"]  { background: var(--warm-300); border-color: var(--warm-700); border-style: dashed; }
+.oz-legend-fill[data-surface="perm"]     { background: var(--green-300); border-color: transparent; }
+.oz-legend-fill[data-surface="water"]    { background: var(--water-400); border-color: transparent; }
+
+.oz-legend-stack { display: flex; flex-direction: column; }
+.oz-legend-bar { display: block; }
+.oz-legend-bar[data-bar="network-base"] { height: 4px; background: var(--network-700); }
+.oz-legend-bar[data-bar="network-mid"]  { height: 3px; background: var(--network-500); }
+.oz-legend-bar[data-bar="warm-base"]    { height: 3px; background: var(--warm-700); }
+.oz-legend-bar[data-bar="warm-top"]     { height: 2px; background: var(--warm-300); }
+
 .oz-legend-poi-dot {
   display: flex; align-items: center; justify-content: center;
   position: relative; height: 14px;
@@ -1319,13 +1401,13 @@ body::before {
 .oz-legend-poi-dot .ring {
   width: 14px; height: 14px;
   border-radius: 50%;
-  background: rgba(240, 235, 223, 0.85);
+  background: color-mix(in srgb, var(--neutral-100) 85%, transparent);
   position: absolute;
 }
 .oz-legend-poi-dot .core {
   width: 9px; height: 9px;
   border-radius: 50%;
-  background: #D63A6E; border: 1.5px solid #4E4360;
+  background: var(--signal-400); border: 1.5px solid var(--network-700);
   position: absolute;
 }
 
@@ -1454,8 +1536,26 @@ body::before {
 .oz-fiche-progress .step.current { background: var(--water-700); color: var(--neutral-100); }
 .oz-fiche-progress .step .yr { font-size: var(--type-micro-size); opacity: 0.7; }
 
-/* ── PAGE TRANSITION (framer-motion) ──────────────── */
-.oz-page-frame { width: 100%; }
+/* ── PAGE TRANSITION (CSS pure, plus de framer-motion) ─── */
+/* Fade-in opacity-only au mount d'un nouveau key={route}. Pas de transform
+   intentionnel — un transform sur cet ancêtre créerait un containing block
+   pour les descendants position:fixed (popover Carte), brisant leur ancrage
+   au viewport. L'opacité seule reste safe.
+   prefers-reduced-motion désactive — règle globale en bas du fichier. */
+.oz-page-frame {
+  width: 100%;
+  opacity: 1;
+  animation: oz-page-in var(--duration-medium) var(--ease-out-quart);
+}
+@keyframes oz-page-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Fallback Suspense · réserve la hauteur du contenu pour éviter CLS. */
+.oz-page-fallback {
+  min-height: calc(100vh - var(--header-clearance) * 2);
+}
 
 
 /* ── LETTERBOX CINEMASCOPE ─────────────────────────── */
@@ -1476,17 +1576,19 @@ body::before {
   overflow: hidden;
 }
 .oz-letterbox::after {
-  /* fine ligne de fuite intérieure pour le contour pellicule */
+  /* fine ligne de fuite intérieure pour le contour pellicule.
+     Noir chaud (rgb depuis neutral-900) au lieu de rgba(0,0,0,*) — respect
+     de la Warm-Shadow Rule sur l'unique composant qui creusait noir-froid. */
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
   box-shadow:
     inset 0 1px 0 rgba(240, 235, 223, 0.04),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.40);
+    inset 0 -1px 0 rgba(20, 16, 10, 0.40);
 }
-.oz-letterbox-top { border-bottom: 1px solid rgba(0, 0, 0, 0.6); }
-.oz-letterbox-bottom { border-top: 1px solid rgba(0, 0, 0, 0.6); }
+.oz-letterbox-top { border-bottom: 1px solid rgba(20, 16, 10, 0.6); }
+.oz-letterbox-bottom { border-top: 1px solid rgba(20, 16, 10, 0.6); }
 
 /* ── TOAST · feedback éphémère (5s ou close) ──────── */
 /* Position : top-center, sous le header sticky.
@@ -1544,7 +1646,11 @@ body::before {
   .oz-header-inner { grid-template-columns: 1fr auto; }
   .oz-nav { display: none; }
   .oz-burger { display: inline-flex; }
-  .oz-login { display: none; }
+  /* Le bouton Connexion du header se masque au mobile, mais celui du drawer
+     mobile (.oz-drawer-login) doit rester visible — c'est l'unique accès
+     Connexion sur mobile. Override explicite. */
+  .oz-header-actions .oz-login { display: none; }
+  .oz-drawer-login { display: inline-flex; }
   .oz-fiche-hero h1 { margin-bottom: var(--space-5); }
 }
 
@@ -1640,7 +1746,7 @@ body::before {
 }
 
 /* Dropcap éditorial Home — capitale Anton water-700 sur le 1er paragraphe
-   du bloc « Pourquoi Open Zones Act ? ». Cohérent avec le pattern Fiche
+   du bloc « Pourquoi Open Zone Acte ? ». Cohérent avec le pattern Fiche
    (.oz-editorial p.dropcap::first-letter, app.css L1075). */
 .oz-home-editorial-col p.dropcap::first-letter {
   font-family: var(--font-display);

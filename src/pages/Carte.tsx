@@ -1,8 +1,52 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { PROJECTS, type Project } from '../data/projects';
 import { ETATS, TYPOLOGIES, REGIONS, type EtatId, type Typologie, type Region } from '../data/taxonomy';
 import { FranceMapGL } from '../components/FranceMapGL';
 import { Pill } from '../components/Pill';
+import { useDialog } from '../lib/useDialog';
+
+/**
+ * Place le popover à côté du marker source, en restant à l'intérieur du viewport.
+ * Priorité : à droite du marker (offset 16px) ; bascule à gauche si on déborde.
+ * Vertical : centré sur le marker, clamp au viewport avec une marge de 16px.
+ */
+const POPOVER_W = 320;
+const POPOVER_H = 340; // hauteur réelle mesurée ~315px ; conservative pour clamp
+const GAP = 16;
+function computePopoverPos(rect: DOMRect) {
+  const { innerWidth: vw, innerHeight: vh } = window;
+  const markerCx = rect.left + rect.width / 2;
+  const markerCy = rect.top + rect.height / 2;
+  // Horizontal — préférence droite
+  let left = rect.right + GAP;
+  if (left + POPOVER_W + GAP > vw) {
+    // pas la place à droite → bascule à gauche du marker
+    left = rect.left - POPOVER_W - GAP;
+  }
+  // Si toujours hors viewport (marker centré sur un petit écran), recule au max possible
+  left = Math.max(GAP, Math.min(left, vw - POPOVER_W - GAP));
+  // Vertical — centré sur le marker
+  let top = markerCy - POPOVER_H / 2;
+  top = Math.max(GAP, Math.min(top, vh - POPOVER_H - GAP));
+  return { top, left, markerCx, markerCy };
+}
+
+// Counts par état · indépendant des filtres, on le calcule une seule fois.
+const ETAT_COUNTS = ETATS.reduce<Record<EtatId, number>>(
+  (acc, e) => {
+    acc[e.id] = PROJECTS.filter((p) => p.etat === e.id).length;
+    return acc;
+  },
+  { amont: 0, etudes: 0, chantier: 0, realise: 0, arrete: 0 },
+);
+// Counts par typologie · pareil.
+const TYPO_COUNTS = Object.fromEntries(
+  TYPOLOGIES.map((t) => [t, PROJECTS.filter((p) => p.typologie === t).length]),
+) as Record<Typologie, number>;
+// Counts par région · pareil.
+const REGION_COUNTS = Object.fromEntries(
+  REGIONS.map((r) => [r, PROJECTS.filter((p) => p.region === r).length]),
+) as Record<Region, number>;
 
 interface CarteProps {
   openProject: (id: string) => void;
@@ -15,6 +59,32 @@ export function Carte({ openProject }: CarteProps) {
   const [surfaceMin, setSurfaceMin] = useState(0);
   const [selected, setSelected] = useState<Project | null>(null);
   const [search, setSearch] = useState('');
+  const [popoverPos, setPopoverPos] = useState<{ top: number; left: number } | null>(null);
+  // Tient le DOM du dernier marker cliqué pour y rendre le focus à la fermeture du popover.
+  const lastMarkerRef = useRef<HTMLElement | null>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+
+  const closePopover = useCallback(() => setSelected(null), []);
+
+  const popoverRef = useDialog<HTMLDivElement>({
+    open: selected !== null,
+    onClose: closePopover,
+    initialFocusRef: closeBtnRef,
+    returnFocusRef: lastMarkerRef,
+  });
+
+  // Recompute pos sur window resize si popover ouvert.
+  useEffect(() => {
+    if (!selected) return;
+    const recompute = () => {
+      const el = lastMarkerRef.current;
+      if (!el) return;
+      const { top, left } = computePopoverPos(el.getBoundingClientRect());
+      setPopoverPos({ top, left });
+    };
+    window.addEventListener('resize', recompute);
+    return () => window.removeEventListener('resize', recompute);
+  }, [selected]);
 
   const toggleEtat = (v: EtatId) =>
     setActiveStates((arr) => (arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]));
@@ -31,28 +101,30 @@ export function Carte({ openProject }: CarteProps) {
     setSearch('');
   };
 
-  const filtered = PROJECTS.filter(
-    (p) =>
-      activeStates.includes(p.etat) &&
-      activeTypos.includes(p.typologie) &&
-      (activeRegions.length === REGIONS.length || activeRegions.includes(p.region)) &&
-      p.surface >= surfaceMin &&
-      (!search ||
-        p.toponym.toLowerCase().includes(search.toLowerCase()) ||
-        p.commune.toLowerCase().includes(search.toLowerCase())),
-  );
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase();
+    return PROJECTS.filter(
+      (p) =>
+        activeStates.includes(p.etat) &&
+        activeTypos.includes(p.typologie) &&
+        (activeRegions.length === REGIONS.length || activeRegions.includes(p.region)) &&
+        p.surface >= surfaceMin &&
+        (!q ||
+          p.toponym.toLowerCase().includes(q) ||
+          p.commune.toLowerCase().includes(q)),
+    );
+  }, [activeStates, activeTypos, activeRegions, surfaceMin, search]);
 
-  const counts = ETATS.reduce<Record<EtatId, number>>(
-    (acc, e) => {
-      acc[e.id] = PROJECTS.filter((p) => p.etat === e.id).length;
-      return acc;
-    },
-    { amont: 0, etudes: 0, chantier: 0, realise: 0, arrete: 0 },
-  );
+  const handleMarkerSelect = useCallback((p: Project, el: HTMLElement) => {
+    lastMarkerRef.current = el;
+    const { top, left } = computePopoverPos(el.getBoundingClientRect());
+    setPopoverPos({ top, left });
+    setSelected(p);
+  }, []);
 
   return (
     <main className="oz-carte-shell">
-      <h1 className="sr-only">Carte interactive · Open Zones Act</h1>
+      <h1 className="sr-only">Carte interactive · Open Zone Acte</h1>
       <aside className="oz-carte-sidebar" aria-label="Filtres et recherche">
         {filtered.length === 0 && (
           <div className="oz-empty-notice" role="status">
@@ -95,21 +167,12 @@ export function Carte({ openProject }: CarteProps) {
               >
                 <span className="left">
                   <span className="check" aria-hidden="true" />
-                  <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
-                    <span
-                      style={{
-                        width: 8,
-                        height: 8,
-                        borderRadius: '50%',
-                        background: e.color,
-                        border: `1px solid ${e.border}`,
-                        display: 'inline-block',
-                      }}
-                    />
+                  <span className="oz-etat-row">
+                    <span className="oz-etat-dot" data-etat={e.id} aria-hidden="true" />
                     {e.label}
                   </span>
                 </span>
-                <span className="num">{counts[e.id]}</span>
+                <span className="num">{ETAT_COUNTS[e.id]}</span>
               </button>
             );
           })}
@@ -134,7 +197,7 @@ export function Carte({ openProject }: CarteProps) {
                   <span className="check" aria-hidden="true" />
                   <span>{t}</span>
                 </span>
-                <span className="num">{PROJECTS.filter((p) => p.typologie === t).length}</span>
+                <span className="num">{TYPO_COUNTS[t]}</span>
               </button>
             );
           })}
@@ -179,7 +242,7 @@ export function Carte({ openProject }: CarteProps) {
                   <span className="check" aria-hidden="true" />
                   <span>{r}</span>
                 </span>
-                <span className="num">{PROJECTS.filter((p) => p.region === r).length}</span>
+                <span className="num">{REGION_COUNTS[r]}</span>
               </button>
             );
           })}
@@ -190,8 +253,9 @@ export function Carte({ openProject }: CarteProps) {
         <FranceMapGL
           projects={filtered}
           etatFilter={activeStates}
-          onSelect={(p) => setSelected(p)}
+          onSelect={handleMarkerSelect}
           selectedId={selected?.id ?? null}
+          onMapMove={closePopover}
         />
 
         <div className="oz-carte-slate">
@@ -201,12 +265,14 @@ export function Carte({ openProject }: CarteProps) {
 
         <div className="oz-carte-attrib">© OSM · IGN · OZA 2026</div>
 
-        {selected && (
+        {selected && popoverPos && (
           <div
+            ref={popoverRef}
             className="oz-fiche-popover"
             role="dialog"
+            aria-modal="true"
             aria-label={`Fiche projet · ${selected.toponym}`}
-            style={{ top: '50%', left: 380, transform: 'translateY(-50%)' }}
+            style={{ top: popoverPos.top, left: popoverPos.left }}
           >
             <div className="head">
               <div>
@@ -218,6 +284,7 @@ export function Carte({ openProject }: CarteProps) {
                 </div>
               </div>
               <button
+                ref={closeBtnRef}
                 type="button"
                 className="close"
                 aria-label="Fermer la fiche"

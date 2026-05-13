@@ -8,16 +8,21 @@ import { parseCoords, FRANCE_CENTER, FRANCE_ZOOM } from '../lib/geo';
 interface FranceMapGLProps {
   projects: Project[];
   etatFilter: EtatId[];
-  onSelect: (p: Project) => void;
+  onSelect: (p: Project, el: HTMLElement) => void;
   selectedId: string | null;
+  /** Fired when the map view changes (pan, zoom). Used to dismiss anchored UI. */
+  onMapMove?: () => void;
 }
 
 const STYLE_URL = '/map/style8.json';
 
-export function FranceMapGL({ projects, etatFilter, onSelect, selectedId }: FranceMapGLProps) {
+export function FranceMapGL({ projects, etatFilter, onSelect, selectedId, onMapMove }: FranceMapGLProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MLMap | null>(null);
   const markersRef = useRef<Map<string, Marker>>(new Map());
+  // Ref captures latest onMapMove without retriggering map init.
+  const onMapMoveRef = useRef(onMapMove);
+  onMapMoveRef.current = onMapMove;
 
   // Init map once.
   useEffect(() => {
@@ -33,11 +38,17 @@ export function FranceMapGL({ projects, etatFilter, onSelect, selectedId }: Fran
     map.addControl(new maplibregl.NavigationControl({ showCompass: false, visualizePitch: false }), 'top-right');
     mapRef.current = map;
 
+    const onMove = () => onMapMoveRef.current?.();
+    map.on('movestart', onMove);
+    map.on('zoomstart', onMove);
+
     const ro = new ResizeObserver(() => map.resize());
     ro.observe(containerRef.current);
 
     return () => {
       ro.disconnect();
+      map.off('movestart', onMove);
+      map.off('zoomstart', onMove);
       map.remove();
       mapRef.current = null;
       markersRef.current.clear();
@@ -74,13 +85,13 @@ export function FranceMapGL({ projects, etatFilter, onSelect, selectedId }: Fran
         `;
         el.addEventListener('click', (e) => {
           e.stopPropagation();
-          onSelect(p);
+          onSelect(p, el);
         });
         el.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             e.stopPropagation();
-            onSelect(p);
+            onSelect(p, el);
           }
         });
         marker = new maplibregl.Marker({ element: el, anchor: 'center' })
@@ -91,20 +102,12 @@ export function FranceMapGL({ projects, etatFilter, onSelect, selectedId }: Fran
 
       const el = marker.getElement();
       el.setAttribute('aria-label', `${p.toponym}, ${p.commune} · ${etat.label}`);
+      el.setAttribute('data-etat', etat.id);
       el.style.opacity = dimmed ? '0.18' : '1';
       el.classList.toggle('selected', selected);
       el.setAttribute('aria-pressed', selected ? 'true' : 'false');
       // Sortir du tab order si dimmed (état filtré masqué)
       el.tabIndex = dimmed ? -1 : 0;
-      const core = el.querySelector<HTMLElement>('.core');
-      const ring = el.querySelector<HTMLElement>('.ring');
-      if (core) {
-        core.style.background = selected ? '#D63A6E' : etat.color;
-        core.style.borderColor = selected ? '#4E4360' : etat.border;
-      }
-      if (ring) {
-        ring.style.opacity = selected ? '1' : '0';
-      }
     }
 
     // Remove markers for projects no longer in the list.

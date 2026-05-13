@@ -10,8 +10,9 @@ const KPIS: { label: string; value: string }[] = [
   { label: 'Fiches publiées',     value: '142' },
   { label: 'Projets en chantier', value: '67' },
   { label: 'Régions couvertes',   value: '12' },
-  { label: 'Dernière mise à jour', value: '2026·04·28' },
 ];
+
+const LAST_UPDATE = '2026·04·28';
 
 const POIS: { x: number; y: number }[] = [
   { x: 52, y: 30 }, // Paris
@@ -49,10 +50,10 @@ export function Home({ navigate, onContribute }: HomeProps) {
               de la transformation des entrées de ville et des zones commerciales
             </h1>
             <p className="oz-home-hero-lede">
-              <strong>Open Zones Act</strong> est la 1<sup>ère</sup> base de données
-              internationale collaborative qui centralise, géolocalise, valorise
-              et diffuse les données des projets de transformation d'entrées de
-              ville et de zones commerciales.
+              <strong>Open Zone Acte</strong> est la base de données collaborative
+              qui centralise, géolocalise, valorise et diffuse les projets de
+              transformation des entrées de ville et des zones commerciales
+              périphériques françaises.
             </p>
             <div className="oz-home-hero-actions">
               <button
@@ -74,7 +75,7 @@ export function Home({ navigate, onContribute }: HomeProps) {
                 className="oz-btn primary"
                 onClick={onContribute}
               >
-                + Ajouter un projet
+                <span aria-hidden="true">+</span> Ajouter un projet
               </button>
             </div>
           </div>
@@ -95,6 +96,10 @@ export function Home({ navigate, onContribute }: HomeProps) {
               </li>
             ))}
           </ul>
+          <p className="oz-home-stats-meta">
+            <span>Dernière mise à jour</span>
+            <time dateTime="2026-04-28">{LAST_UPDATE}</time>
+          </p>
         </div>
       </section>
 
@@ -144,7 +149,7 @@ export function Home({ navigate, onContribute }: HomeProps) {
           <div className="oz-home-editorial-grid">
             <article className="oz-home-editorial-col">
               <div className="oz-eyebrow">L'observatoire</div>
-              <h3 className="oz-home-editorial-title">Pourquoi Open Zones Act ?</h3>
+              <h3 className="oz-home-editorial-title">Pourquoi Open Zone Acte ?</h3>
               <p className="dropcap">
                 La transformation des entrées de ville et des zones d'activités
                 monofonctionnelles vieillissantes est enjeu majeur pour répondre
@@ -153,7 +158,7 @@ export function Home({ navigate, onContribute }: HomeProps) {
                 valorisables évalué à 80 000&nbsp;ha.
               </p>
               <p>
-                Open Zones Act apporte à tous les acteurs de cette transformation
+                Open Zone Acte apporte à tous les acteurs de cette transformation
                 la connaissance, les informations et les inspirations nécessaires
                 à l'engagement et à la réussite de leur projet dans une logique
                 d'essaimage.
@@ -175,7 +180,7 @@ export function Home({ navigate, onContribute }: HomeProps) {
               <div className="oz-eyebrow">Deuxième acte</div>
               <h3 className="oz-home-editorial-title">Qui sommes-nous ?</h3>
               <p>
-                Open Zones Act est un projet porté par Deuxième acte, association
+                Open Zone Acte est un projet porté par Deuxième Acte, association
                 loi 1901 créée en juillet 2025 dont la mission est d'accélérer la
                 transformation des entrées de ville et des zones commerciales en
                 France, pour en faire des quartiers urbains, écologiques, vivants

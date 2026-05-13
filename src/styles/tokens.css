@@ -59,12 +59,18 @@
      l'heure bleue. Plus de hour-cycling. */
   --bg-canvas:        #E8E2D8;
   --bg-tone:          #DCD4D2;
-  --bg-surface:       color-mix(in srgb, var(--neutral-100) 75%, #ffffff 25%);
+  /* Surface ~ neutral-100 + cream-paper tinté chaud (et non blanc papier).
+     Le mix avec #FAF6EE garde la teinte film-pellicule sans glisser vers
+     un blanc papier hostile à la palette. */
+  --bg-surface:       color-mix(in srgb, var(--neutral-100) 75%, #FAF6EE 25%);
   --bg-emphasis:      var(--neutral-900);
 
   --text-primary:     var(--neutral-900);
   --text-secondary:   color-mix(in srgb, var(--neutral-900) 75%, var(--neutral-400) 25%);
-  --text-tertiary:    color-mix(in srgb, var(--neutral-900) 50%, var(--neutral-400) 50%);
+  /* 60/40 mix vers neutral-900 — atteint WCAG AA 4.5:1 sur bg-canvas pour
+     les mono micros (10-11px) qui composent labels, captions, attribution.
+     Auparavant 50/50 = ~4.3:1, en dessous du minimum normal text. */
+  --text-tertiary:    color-mix(in srgb, var(--neutral-900) 60%, var(--neutral-400) 40%);
   --text-on-emphasis: var(--neutral-100);
 
   --border-subtle:    var(--neutral-200);

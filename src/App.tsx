@@ -1,18 +1,25 @@
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Home } from './pages/Home';
-import { Carte } from './pages/Carte';
-import { Galerie } from './pages/Galerie';
-import { Fiche } from './pages/Fiche';
 import type { Route } from './lib/router';
+
+// Code-split — chacun de ces écrans tire ses propres lourdeurs (maplibre-gl
+// pour Carte, illustrations SVG pour Galerie, mini-carte + meta pour Fiche).
+// Home reste eager, c'est la page d'atterrissage.
+const Carte = lazy(() => import('./pages/Carte').then((m) => ({ default: m.Carte })));
+const Galerie = lazy(() => import('./pages/Galerie').then((m) => ({ default: m.Galerie })));
+const Fiche = lazy(() => import('./pages/Fiche').then((m) => ({ default: m.Fiche })));
+
+function PageFallback() {
+  // Réserve la hauteur sous le header — évite un CLS pendant le chunk-load.
+  return <div className="oz-page-fallback" aria-busy="true" aria-live="polite" />;
+}
 
 function App() {
   const [route, setRoute] = useState<Route>('home');
   const [projectId, setProjectId] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
-  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (!toast) return;
@@ -21,7 +28,8 @@ function App() {
   }, [toast]);
 
   const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
   };
 
   const navigate = (r: Route) => {
@@ -47,11 +55,10 @@ function App() {
     );
   };
 
-  // Page transition : framer-motion respecte la préférence utilisateur.
-  // Sous reduced-motion, on collapse à un fade instantané.
-  const pageTransition = reducedMotion
-    ? { duration: 0 }
-    : { duration: 0.32, ease: [0.4, 0, 0.2, 1] as const };
+  // Page-frame · key={route+projectId} pour remonter à chaque changement.
+  // L'animation est portée par CSS .oz-page-frame (cf. app.css). Respecte
+  // prefers-reduced-motion sans dépendance JS supplémentaire.
+  const pageKey = route + (route === 'fiche' ? `:${projectId}` : '');
 
   return (
     <div className="oz-shell">
@@ -62,23 +69,16 @@ function App() {
         onLogin={onLogin}
       />
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={route + (route === 'fiche' ? `:${projectId}` : '')}
-          className="oz-page-frame"
-          initial={{ opacity: 0, y: reducedMotion ? 0 : 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: reducedMotion ? 0 : -8 }}
-          transition={pageTransition}
-        >
+      <div key={pageKey} className="oz-page-frame">
+        <Suspense fallback={<PageFallback />}>
           {route === 'home' && (
             <Home navigate={navigate} onContribute={onContribute} />
           )}
-          {route === 'carte'   && <Carte openProject={openProject} />}
+          {route === 'carte' && <Carte openProject={openProject} />}
           {route === 'galerie' && <Galerie openProject={openProject} />}
-          {route === 'fiche'   && <Fiche projectId={projectId} navigate={navigate} />}
-        </motion.div>
-      </AnimatePresence>
+          {route === 'fiche' && <Fiche projectId={projectId} navigate={navigate} />}
+        </Suspense>
+      </div>
 
       <Footer />
 

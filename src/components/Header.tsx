@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import type { Route } from '../lib/router';
+import { useDialog } from '../lib/useDialog';
 
 interface HeaderProps {
   route: Route;
@@ -35,28 +36,23 @@ export function Header({ route, navigate, onContribute, onLogin }: HeaderProps) 
   };
 
   useEffect(() => {
-    if (drawerOpen) {
-      document.body.style.overflow = 'hidden';
-      const id = requestAnimationFrame(() => closeRef.current?.focus());
-      return () => {
-        cancelAnimationFrame(id);
-        document.body.style.overflow = '';
-      };
-    }
-    document.body.style.overflow = '';
+    if (!drawerOpen) return;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [drawerOpen]);
 
-  useEffect(() => {
-    if (!drawerOpen) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setDrawerOpen(false);
-        burgerRef.current?.focus();
-      }
-    };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [drawerOpen]);
+  const drawerRef = useDialog<HTMLElement>({
+    open: drawerOpen,
+    onClose: () => setDrawerOpen(false),
+    initialFocusRef: closeRef,
+    returnFocusRef: burgerRef,
+    // Marque le header (hors drawer), la page courante et le footer
+    // comme inert pendant que le drawer est ouvert. Replace l'ancien
+    // aria-hidden + tabIndex juggling.
+    inertSelectors: ['.oz-header', '.oz-page-frame', '.oz-footer'],
+  });
 
   return (
     <>
@@ -117,10 +113,13 @@ export function Header({ route, navigate, onContribute, onLogin }: HeaderProps) 
         aria-hidden="true"
       />
       <aside
+        ref={drawerRef as React.RefObject<HTMLElement>}
         id="oz-mobile-drawer"
         className={`oz-drawer${drawerOpen ? ' is-open' : ''}`}
-        aria-hidden={!drawerOpen}
+        role="dialog"
+        aria-modal="true"
         aria-label="Navigation mobile"
+        aria-hidden={!drawerOpen}
       >
         <div className="oz-drawer-head">
           <span className="oz-drawer-eyebrow">Navigation</span>
@@ -130,7 +129,6 @@ export function Header({ route, navigate, onContribute, onLogin }: HeaderProps) 
             className="oz-drawer-close"
             aria-label="Fermer la navigation"
             onClick={() => setDrawerOpen(false)}
-            tabIndex={drawerOpen ? 0 : -1}
           >
             <span aria-hidden="true">×</span>
           </button>
@@ -145,7 +143,6 @@ export function Header({ route, navigate, onContribute, onLogin }: HeaderProps) 
                 className={`oz-drawer-link${active ? ' active' : ''}`}
                 aria-current={active ? 'page' : undefined}
                 onClick={() => handleNavClick(item)}
-                tabIndex={drawerOpen ? 0 : -1}
               >
                 {item.label}
               </button>
@@ -160,7 +157,6 @@ export function Header({ route, navigate, onContribute, onLogin }: HeaderProps) 
               setDrawerOpen(false);
               onLogin();
             }}
-            tabIndex={drawerOpen ? 0 : -1}
           >
             Connexion
           </button>

@@ -81,18 +81,18 @@ export function Fiche({ projectId, navigate }: FicheProps) {
             <div className="oz-legend-group">
               <div className="oz-legend-group-title">Réseau</div>
               <div className="oz-legend-row">
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ height: 4, background: '#4E4360' }} />
-                  <span style={{ height: 3, background: '#8C7B96' }} />
-                  <span style={{ height: 4, background: '#4E4360' }} />
+                <div className="oz-legend-stack">
+                  <span className="oz-legend-bar" data-bar="network-base" />
+                  <span className="oz-legend-bar" data-bar="network-mid" />
+                  <span className="oz-legend-bar" data-bar="network-base" />
                 </div>
                 <span>Autoroute</span>
               </div>
               <div className="oz-legend-row">
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ height: 3, background: '#7A5224' }} />
-                  <span style={{ height: 2, background: '#E8C282' }} />
-                  <span style={{ height: 3, background: '#7A5224' }} />
+                <div className="oz-legend-stack">
+                  <span className="oz-legend-bar" data-bar="warm-base" />
+                  <span className="oz-legend-bar" data-bar="warm-top" />
+                  <span className="oz-legend-bar" data-bar="warm-base" />
                 </div>
                 <span>Artère urbaine</span>
               </div>
@@ -100,19 +100,19 @@ export function Fiche({ projectId, navigate }: FicheProps) {
             <div className="oz-legend-group">
               <div className="oz-legend-group-title">Surfaces</div>
               <div className="oz-legend-row">
-                <div className="oz-legend-fill" style={{ background: '#8C7B96', borderColor: '#4E4360' }} />
+                <div className="oz-legend-fill" data-surface="commerce" />
                 <span>Zone commerciale</span>
               </div>
               <div className="oz-legend-row">
-                <div className="oz-legend-fill" style={{ background: '#E8C282', borderColor: '#7A5224', borderStyle: 'dashed' }} />
+                <div className="oz-legend-fill" data-surface="project" />
                 <span>Projet en cours</span>
               </div>
               <div className="oz-legend-row">
-                <div className="oz-legend-fill" style={{ background: '#BBC5BB', borderColor: 'transparent' }} />
+                <div className="oz-legend-fill" data-surface="perm" />
                 <span>Sols perméables</span>
               </div>
               <div className="oz-legend-row">
-                <div className="oz-legend-fill" style={{ background: '#8AAFB6', borderColor: 'transparent' }} />
+                <div className="oz-legend-fill" data-surface="water" />
                 <span>Eau</span>
               </div>
             </div>
